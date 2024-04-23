@@ -144,19 +144,49 @@ Setting up the Solidity Smart-Contract Advisor involves several steps, including
      docker-compose up -d
      ```
    - This will build and run MongoDB and Weaviate containers in detached mode.
+2. **Downloading Smart Contracts**: 
+   - Ensure you have the `contracts.csv` file, which can be downloaded from Etherscan.
+   - Run the `etherscan.py` script to download 5000 verified smart contract source codes into the `downloaded_contracts` folder:
+     ```
+     python etherscan.py
+     ```
+     The folders have sample files but you can find all with zip formeted under python/dump folder
 
-2. **Setting Environment Variables**:
+![List of Verified Smart-Contracts](./preview/images/verified-smart-contracts.png)
+
+3. **Ingesting Data into Weaviate**:
+   - Once all contracts are downloaded, use the `weaviate_ingest.py` script to chunk the data and insert it into the Weaviate Vector Database:
+     ```
+     python weaviate_ingest.py
+     ```
+   - This process creates the necessary chunks and populates Weaviate with the vectorized data.
+
+![Ingestion](./preview/images/ingestion.png)
+
+4. **Ingesting HTML Files**:
+   - To ingest HTML documentation, run the `weaviate_ingest_htmls.py` script in a similar manner:
+     ```
+     python weaviate_ingest_htmls.py
+     ```
+
+5. **Setting Environment Variables**:
    - On the Python side, you need to set up environment variables for the OpenAI key and Etherscan key. Create a `.env` file in the root directory of the Python project and include the following:
+   - or for simlicity directly assign api key in wecore.py (not recomemded but it easy :))
      ```
      OPENAI_KEY=your_openai_key
-     ETHERSCAN_KEY=your_etherscan_key
+     ETHERSCAN_KEY=your_etherscan_key (will need only if want to download solidity contracts or also u can simply use already availble set of smart contracts for database)
      MONGODB_DSN=your_mongodb_dsn
      ```
    - Ensure that the MongoDB DSN (Data Source Name) matches the configuration of your MongoDB Docker container.
 
-3. **Running the Backend and Client**:
-   - The project has two main folders: `backend` and `client`. Each of these needs to be started separately.
-   - Navigate to the `backend` folder and run:
+6. **Running the Backend and Client**:
+   - for llm to respond to the query first we need to go to "python/backend" folder there run:
+     ```
+     python3.11 main.py
+     ```
+   - this will connect llm model to mongo db database hosted on docker to utilise the specified dataset to answer the query
+   - The project has two main folders: `server` and `client`. Each of these needs to be started separately.
+   - Navigate to the `server` folder and run:
      ```
      npm i
      npm run dev
@@ -168,42 +198,9 @@ Setting up the Solidity Smart-Contract Advisor involves several steps, including
      ```
    - This will start the development servers for both the backend and the frontend.
 
-4. **Downloading Smart Contracts**:
-   - Ensure you have the `contracts.csv` file, which can be downloaded from Etherscan.
-   - Run the `etherscan.py` script to download 5000 verified smart contract source codes into the `downloaded_contracts` folder:
-     ```
-     python etherscan.py
-     ```
-     The folders have sample files but you can find all with zip formeted under python/dump folder
-
-![List of Verified Smart-Contracts](./preview/images/verified-smart-contracts.png)
-
-5. **Ingesting Data into Weaviate**:
-   - Once all contracts are downloaded, use the `weaviate_ingest.py` script to chunk the data and insert it into the Weaviate Vector Database:
-     ```
-     python weaviate_ingest.py
-     ```
-   - This process creates the necessary chunks and populates Weaviate with the vectorized data.
-
-![Ingestion](./preview/images/ingestion.png)
-
-6. **Ingesting HTML Files**:
-   - To ingest HTML documentation, run the `weaviate_ingest_htmls.py` script in a similar manner:
-     ```
-     python weaviate_ingest_htmls.py
-     ```
-
-7. **Alternative to Weaviate - Using Pinecone**:
-   - For those preferring to use Pinecone instead of Weaviate, the `pinecone_ingest.py` script is provided:
-     ```
-     python pinecone_ingest.py
-     ```
 
 After completing these steps, your Solidity Smart-Contract Advisor should be up and running, ready to provide insights and advice on Solidity smart contracts.
 
-
-## Contributions
-All contributions are welcome :)
 
 ## Future Enhancements
 
