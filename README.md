@@ -144,9 +144,10 @@ Setting up the Solidity Smart-Contract Advisor involves several steps, including
      docker-compose up -d
      ```
    - This will build and run MongoDB and Weaviate containers in detached mode.
-2. **Downloading Smart Contracts**: 
-   - Ensure you have the `contracts.csv` file, which can be downloaded from Etherscan.
-   - Run the `etherscan.py` script to download 5000 verified smart contract source codes into the `downloaded_contracts` folder:
+2. **Downloading Smart Contracts**:
+   - Go to python folder 
+   - Ensure you have the `contracts.csv` file,using which contracts can be downloaded from Etherscan.
+   - Run the `etherscan.py` script to download 5000 verified smart contract source codes into the `downloaded_contracts` folder (u will need etherscan api key see step 5 or simply you can use downloaded contracts which is ziped and kept in to dumps folder extract & use it no need to download from etherscan ):
      ```
      python etherscan.py
      ```
