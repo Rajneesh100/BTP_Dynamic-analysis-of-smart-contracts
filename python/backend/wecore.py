@@ -9,7 +9,8 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores.weaviate import Weaviate
 
 load_dotenv()
-openai_api_key = "sk-proj-tT0IkSo3N4BaP43aVQegT3BlbkFJ8iAaBpKDgweKRO94mYjv"
+openai_api_key =  "sk-proj-tT0IkSo3fgfhfhgfhfghfhgfghfhgfhguyv"
+# replace with your own api key
 # openai_api_key = os.getenv("OPENAI_API_KEY")
 
 client = weaviate.Client("http://localhost:8080")
