@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/resources.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources &mdash; Solidity 0.8.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/a4_railroad_diagram.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/fonts.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/toggle.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-doc-embed.js"></script>
+        <script src="_static/js/constants.js"></script>
+        <script src="_static/js/initialize.js"></script>
+        <script src="_static/js/toggle.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Common Patterns" href="common-patterns.html" /> 
+
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="https://docs.soliditylang.org/_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": true, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": null, "language": "en", "page": "resources", "programming_language": "cpp", "project": "solidity", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_rtd_theme", "user_analytics_code": "", "version": "v0.8.23"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html">
+            
+          </a>
+              <div class="version">
+                v0.8.23
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://docs.soliditylang.org/en/v0.8.23/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction-to-smart-contracts.html">Introduction to Smart Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidity-by-example.html">Solidity by Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-solidity.html">Installing the Solidity Compiler</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Description</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="layout-of-source-files.html">Layout of a Solidity Source File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure-of-a-contract.html">Structure of a Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="units-and-global-variables.html">Units and Globally Available Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control-structures.html">Expressions and Control Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Inline Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grammar.html">Language Grammar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compiler</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="using-the-compiler.html">Using the Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing-compilation-output.html">Analysing the Compiler Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ir-breaking-changes.html">Solidity IR-based Codegen Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_storage.html">Layout of State Variables in Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_memory.html">Layout in Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_calldata.html">Layout of Call Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/variable_cleanup.html">Cleaning Up Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/source_mappings.html">Source Mappings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/optimizer.html">The Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Contract Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abi-spec.html">Contract ABI Specification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advisory content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="security-considerations.html">Security Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">List of Known Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="050-breaking-changes.html">Solidity v0.5.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="060-breaking-changes.html">Solidity v0.6.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="070-breaking-changes.html">Solidity v0.7.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="080-breaking-changes.html">Solidity v0.8.0 Breaking Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="natspec-format.html">NatSpec Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smtchecker.html">SMTChecker and Formal Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yul.html">Yul</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path-resolution.html">Import Path Resolution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-resources">General Resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integrated-ethereum-development-environments">Integrated (Ethereum) Development Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#editor-integrations">Editor Integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#solidity-tools">Solidity Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#third-party-solidity-parsers-and-grammars">Third-Party Solidity Parsers and Grammars</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="language-influences.html">Language Influences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brand-guide.html">Solidity Brand Guide</a></li>
+</ul>
+
+    <ul>
+        <li>
+            <a href="genindex.html">Keyword Index</a>
+        </li>
+    </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Solidity</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Resources</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ethereum/solidity/blob/v0.8.23/docs/resources.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="resources">
+<h1>Resources<a class="headerlink" href="#resources" title="Permalink to this heading"></a></h1>
+<section id="general-resources">
+<h2>General Resources<a class="headerlink" href="#general-resources" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ethereum.org/en/developers/">Ethereum.org Developer Portal</a></p></li>
+<li><p><a class="reference external" href="https://ethereum.stackexchange.com/">Ethereum StackExchange</a></p></li>
+<li><p><a class="reference external" href="https://soliditylang.org/">Solidity Portal</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ethereum/solidity/blob/develop/Changelog.md">Solidity Changelog</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ethereum/solidity/">Solidity Source Code on GitHub</a></p></li>
+<li><p><a class="reference external" href="https://matrix.to/#/#ethereum_solidity:gitter.im">Solidity Language Users Chat</a></p></li>
+<li><p><a class="reference external" href="https://matrix.to/#/#ethereum_solidity-dev:gitter.im">Solidity Compiler Developers Chat</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bkrem/awesome-solidity">Awesome Solidity</a></p></li>
+<li><p><a class="reference external" href="https://solidity-by-example.org/">Solidity by Example</a></p></li>
+<li><p><a class="reference external" href="https://github.com/solidity-docs">Solidity Documentation Community Translations</a></p></li>
+</ul>
+</section>
+<section id="integrated-ethereum-development-environments">
+<h2>Integrated (Ethereum) Development Environments<a class="headerlink" href="#integrated-ethereum-development-environments" title="Permalink to this heading"></a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://eth-brownie.readthedocs.io/en/stable/">Brownie</a></dt><dd><p>Python-based development and testing framework for smart contracts targeting the Ethereum Virtual Machine.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://dapp.tools/">Dapp</a></dt><dd><p>Tool for building, testing and deploying smart contracts from the command-line.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://framework.embarklabs.io/">Embark</a></dt><dd><p>Developer platform for building and deploying decentralized applications.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/foundry-rs/foundry">Foundry</a></dt><dd><p>Fast, portable and modular toolkit for Ethereum application development written in Rust.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://hardhat.org/">Hardhat</a></dt><dd><p>Ethereum development environment with local Ethereum network, debugging features and plugin ecosystem.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://remix.ethereum.org/">Remix</a></dt><dd><p>Browser-based IDE with integrated compiler and Solidity runtime environment without server-side components.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://trufflesuite.com/truffle/">Truffle</a></dt><dd><p>Ethereum development framework.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="editor-integrations">
+<h2>Editor Integrations<a class="headerlink" href="#editor-integrations" title="Permalink to this heading"></a></h2>
+<ul>
+<li><p>Emacs</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/ethereum/emacs-solidity/">Emacs Solidity</a></dt><dd><p>Plugin for the Emacs editor providing syntax highlighting and compilation error reporting.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>IntelliJ</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://plugins.jetbrains.com/plugin/9475-solidity/">IntelliJ IDEA plugin</a></dt><dd><p>Solidity plugin for IntelliJ IDEA (and all other JetBrains IDEs).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Sublime Text</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://packagecontrol.io/packages/Ethereum/">Package for SublimeText - Solidity language syntax</a></dt><dd><p>Solidity syntax highlighting for SublimeText editor.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Vim</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/thesis/vim-solidity/">Vim Solidity by Thesis</a></dt><dd><p>Syntax highlighting for Solidity in Vim.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/TovarishFin/vim-solidity">Vim Solidity by TovarishFin</a></dt><dd><p>Vim syntax file for Solidity.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/vim-syntastic/syntastic">Vim Syntastic</a></dt><dd><p>Plugin for the Vim editor providing compile checking.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Visual Studio Code (VS Code)</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/ethereum/remix-vscode">Ethereum Remix Visual Studio Code extension</a></dt><dd><p>Ethereum Remix extension pack for VS Code</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://juan.blanco.ws/solidity-contracts-in-visual-studio-code/">Solidity Visual Studio Code extension, by Juan Blanco</a></dt><dd><p>Solidity plugin for Microsoft Visual Studio Code that includes syntax highlighting and the Solidity compiler.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=NomicFoundation.hardhat-solidity">Solidity Visual Studio Code extension, by Nomic Foundation</a></dt><dd><p>Solidity and Hardhat support by the Hardhat team, including: syntax highlighting, jump to definition, renames, quick fixes and inline solc warnings and errors.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=tintinweb.solidity-visual-auditor">Solidity Visual Auditor extension</a></dt><dd><p>Adds security centric syntax and semantic highlighting to Visual Studio Code.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=trufflesuite-csi.truffle-vscode">Truffle for VS Code</a></dt><dd><p>Build, debug and deploy smart contracts on Ethereum and EVM-compatible blockchains.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="solidity-tools">
+<h2>Solidity Tools<a class="headerlink" href="#solidity-tools" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://gist.github.com/chriseth/8f533d133fa0c15b0d6eaf3ec502c82b">ABI to Solidity interface converter</a></dt><dd><p>A script for generating contract interfaces from the ABI of a smart contract.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/gnidan/abi-to-sol">abi-to-sol</a></dt><dd><p>Tool to generate Solidity interface source from a given ABI JSON.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/DigixGlobal/doxity">Doxity</a></dt><dd><p>Documentation Generator for Solidity.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/duaraghav8/Ethlint">Ethlint</a></dt><dd><p>Linter to identify and fix style and security issues in Solidity.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/Arachnid/evmdis">evmdis</a></dt><dd><p>EVM Disassembler that performs static analysis on the bytecode to provide a higher level of abstraction than raw EVM operations.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/ethereum/evmlab/">EVM Lab</a></dt><dd><p>Rich tool package to interact with the EVM. Includes a VM, Etherchain API, and a trace-viewer with gas cost display.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/dapphub/dapptools/tree/master/src/hevm#readme">hevm</a></dt><dd><p>EVM debugger and symbolic execution engine.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/clemlak/leafleth">leafleth</a></dt><dd><p>A documentation generator for Solidity smart-contracts.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/scaffold-eth/scaffold-eth">Scaffold-ETH</a></dt><dd><p>Forkable Ethereum development stack focused on fast product iterations.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://www.npmjs.com/package/sol2uml">sol2uml</a></dt><dd><p>Unified Modeling Language (UML) class diagram generator for Solidity contracts.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/crytic/solc-select">solc-select</a></dt><dd><p>A script to quickly switch between Solidity compiler versions.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/prettier-solidity/prettier-plugin-solidity">Solidity prettier plugin</a></dt><dd><p>A Prettier Plugin for Solidity.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/raineorshine/solidity-repl">Solidity REPL</a></dt><dd><p>Try Solidity instantly with a command-line Solidity console.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/raineorshine/solgraph">solgraph</a></dt><dd><p>Visualize Solidity control flow and highlight potential security vulnerabilities.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/protofire/solhint">Solhint</a></dt><dd><p>Solidity linter that provides security, style guide and best practice rules for smart contract validation.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://sourcify.dev/">Sourcify</a></dt><dd><p>Decentralized automated contract verification service and public repository of contract metadata.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/ConsenSys/surya/">Sūrya</a></dt><dd><p>Utility tool for smart contract systems, offering a number of visual outputs and information about the contracts’ structure. Also supports querying the function call graph.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/agroce/universalmutator">Universal Mutator</a></dt><dd><p>A tool for mutation generation, with configurable rules and support for Solidity and Vyper.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="third-party-solidity-parsers-and-grammars">
+<h2>Third-Party Solidity Parsers and Grammars<a class="headerlink" href="#third-party-solidity-parsers-and-grammars" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><dl class="simple">
+<dt><a class="reference external" href="https://github.com/solidity-parser/parser">Solidity Parser for JavaScript</a></dt><dd><p>A Solidity parser for JS built on top of a robust ANTLR4 grammar.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="common-patterns.html" class="btn btn-neutral float-left" title="Common Patterns" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2023, The Solidity Authors.
+      <span class="commit">Revision <code>f704f362</code>.
+      </span></p>
+  </div>
+
+  
+    <p>
+        <a href="credits-and-attribution.html">Credits and attribution</a>.
+    </p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book fa-element"> RTD </span>
+
+    <span class="fa fa-element">
+    <input class="container_toggle" type="checkbox" id="switch" name="mode">
+    <label for="switch"></label>
+    </span>
+
+    <span class="fa fa-v fa-element"> v: v0.8.23 <span class="fa fa-caret-down"></span></span>
+
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Downloads</dt> 
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/pdf/">pdf</a></dd>
+            
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/epub/">epub</a></dd>
+            
+        </dl>
+        <dl>
+            <dt>Versions</dt> 
+            <dd><a href="https://docs.soliditylang.org/en/latest/">latest</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/stable/">stable</a></dd>
+            
+            <dd><a href="index.html">v0.8.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.22/">v0.8.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.21/">v0.8.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.20/">v0.8.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.19/">v0.8.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.18/">v0.8.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.17/">v0.8.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.16/">v0.8.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.15/">v0.8.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.14/">v0.8.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.13/">v0.8.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.12/">v0.8.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.11/">v0.8.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.10/">v0.8.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.9/">v0.8.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.8/">v0.8.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.7/">v0.8.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.6/">v0.8.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.5/">v0.8.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.4/">v0.8.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.3/">v0.8.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.2/">v0.8.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.1/">v0.8.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.0/">v0.8.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.6/">v0.7.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.5/">v0.7.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.4/">v0.7.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.3/">v0.7.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.2/">v0.7.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.1/">v0.7.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.0/">v0.7.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.12/">v0.6.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.11/">v0.6.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.10/">v0.6.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.9/">v0.6.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.8/">v0.6.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.7/">v0.6.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.6/">v0.6.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.5/">v0.6.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.4/">v0.6.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.3/">v0.6.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.2/">v0.6.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.1/">v0.6.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.0/">v0.6.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.17/">v0.5.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.16/">v0.5.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.15/">v0.5.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.14/">v0.5.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.13/">v0.5.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.12/">v0.5.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.11/">v0.5.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.10/">v0.5.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.9/">v0.5.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.8/">v0.5.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.7/">v0.5.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.6/">v0.5.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.5/">v0.5.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.4/">v0.5.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.3/">v0.5.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.2/">v0.5.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.1/">v0.5.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.0/">v0.5.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.26/">v0.4.26</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.25/">v0.4.25</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.24/">v0.4.24</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.23/">v0.4.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.22/">v0.4.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.21/">v0.4.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.20/">v0.4.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.19/">v0.4.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.18/">v0.4.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.17/">v0.4.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.16/">v0.4.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.15/">v0.4.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.14/">v0.4.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.13/">v0.4.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.12/">v0.4.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.11/">v0.4.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.10/">v0.4.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.9/">v0.4.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.8/">v0.4.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.7/">v0.4.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.6/">v0.4.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.5/">v0.4.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.4/">v0.4.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.3/">v0.4.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.2/">v0.4.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.1/">v0.4.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.0/">v0.4.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.6/">v0.3.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.5/">v0.3.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.4/">v0.3.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.3/">v0.3.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.2/">v0.3.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.1/">v0.3.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.0/">v0.3.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.2/">v0.2.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.1/">v0.2.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.0/">v0.2.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.7/">v0.1.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.6/">v0.1.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.5/">v0.1.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.4/">v0.1.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.3/">v0.1.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.2/">v0.1.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/develop/">develop</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/breaking/">breaking</a></dd>
+            
+        </dl>
+        <dl>
+            
+            <dt>On Read the Docs</dt>
+            <dd>
+                <a href="http://readthedocs.org/projects/solidity/?fromdocs=solidity">Project Home</a>
+            </dd>
+            <dd>
+                <a href="http://readthedocs.org/builds/solidity/?fromdocs=solidity">Builds</a>
+            </dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/resources.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:17 GMT -->
+</html>

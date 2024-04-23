@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/natspec-format.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NatSpec Format &mdash; Solidity 0.8.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/a4_railroad_diagram.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/fonts.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/toggle.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-doc-embed.js"></script>
+        <script src="_static/js/constants.js"></script>
+        <script src="_static/js/initialize.js"></script>
+        <script src="_static/js/toggle.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SMTChecker and Formal Verification" href="smtchecker.html" />
+    <link rel="prev" title="Solidity v0.8.0 Breaking Changes" href="080-breaking-changes.html" /> 
+
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="https://docs.soliditylang.org/_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": true, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": null, "language": "en", "page": "natspec-format", "programming_language": "cpp", "project": "solidity", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_rtd_theme", "user_analytics_code": "", "version": "v0.8.23"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html">
+            
+          </a>
+              <div class="version">
+                v0.8.23
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://docs.soliditylang.org/en/v0.8.23/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction-to-smart-contracts.html">Introduction to Smart Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidity-by-example.html">Solidity by Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-solidity.html">Installing the Solidity Compiler</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Description</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="layout-of-source-files.html">Layout of a Solidity Source File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure-of-a-contract.html">Structure of a Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="units-and-global-variables.html">Units and Globally Available Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control-structures.html">Expressions and Control Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Inline Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grammar.html">Language Grammar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compiler</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="using-the-compiler.html">Using the Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing-compilation-output.html">Analysing the Compiler Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ir-breaking-changes.html">Solidity IR-based Codegen Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_storage.html">Layout of State Variables in Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_memory.html">Layout in Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_calldata.html">Layout of Call Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/variable_cleanup.html">Cleaning Up Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/source_mappings.html">Source Mappings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/optimizer.html">The Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Contract Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abi-spec.html">Contract ABI Specification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advisory content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="security-considerations.html">Security Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">List of Known Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="050-breaking-changes.html">Solidity v0.5.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="060-breaking-changes.html">Solidity v0.6.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="070-breaking-changes.html">Solidity v0.7.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="080-breaking-changes.html">Solidity v0.8.0 Breaking Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NatSpec Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-example">Documentation Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tags">Tags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-expressions">Dynamic expressions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inheritance-notes">Inheritance Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-output">Documentation Output</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#user-documentation">User Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developer-documentation">Developer Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smtchecker.html">SMTChecker and Formal Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yul.html">Yul</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path-resolution.html">Import Path Resolution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="language-influences.html">Language Influences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brand-guide.html">Solidity Brand Guide</a></li>
+</ul>
+
+    <ul>
+        <li>
+            <a href="genindex.html">Keyword Index</a>
+        </li>
+    </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Solidity</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NatSpec Format</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ethereum/solidity/blob/v0.8.23/docs/natspec-format.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="natspec-format">
+<span id="natspec"></span><h1>NatSpec Format<a class="headerlink" href="#natspec-format" title="Permalink to this heading"></a></h1>
+<p>Solidity contracts can use a special form of comments to provide rich
+documentation for functions, return variables and more. This special form is
+named the Ethereum Natural Language Specification Format (NatSpec).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NatSpec was inspired by <a class="reference external" href="https://en.wikipedia.org/wiki/Doxygen">Doxygen</a>.
+While it uses Doxygen-style comments and tags, there is no intention to keep
+strict compatibility with Doxygen. Please carefully examine the supported tags
+listed below.</p>
+</div>
+<p>This documentation is segmented into developer-focused messages and end-user-facing
+messages. These messages may be shown to the end user (the human) at the
+time that they will interact with the contract (i.e. sign a transaction).</p>
+<p>It is recommended that Solidity contracts are fully annotated using NatSpec for
+all public interfaces (everything in the ABI).</p>
+<p>NatSpec includes the formatting for comments that the smart contract author will
+use, and which are understood by the Solidity compiler. Also detailed below is
+output of the Solidity compiler, which extracts these comments into a machine-readable
+format.</p>
+<p>NatSpec may also include annotations used by third-party tools. These are most likely
+accomplished via the <code class="docutils literal notranslate"><span class="pre">&#64;custom:&lt;name&gt;</span></code> tag, and a good use case is analysis and verification
+tools.</p>
+<section id="documentation-example">
+<span id="header-doc-example"></span><h2>Documentation Example<a class="headerlink" href="#documentation-example" title="Permalink to this heading"></a></h2>
+<p>Documentation is inserted above each <code class="docutils literal notranslate"><span class="pre">contract</span></code>, <code class="docutils literal notranslate"><span class="pre">interface</span></code>, <code class="docutils literal notranslate"><span class="pre">library</span></code>,
+<code class="docutils literal notranslate"><span class="pre">function</span></code>, and <code class="docutils literal notranslate"><span class="pre">event</span></code> using the Doxygen notation format.
+A <code class="docutils literal notranslate"><span class="pre">public</span></code> state variable is equivalent to a <code class="docutils literal notranslate"><span class="pre">function</span></code>
+for the purposes of NatSpec.</p>
+<ul class="simple">
+<li><p>For Solidity you may choose <code class="docutils literal notranslate"><span class="pre">///</span></code> for single or multi-line
+comments, or <code class="docutils literal notranslate"><span class="pre">/**</span></code> and ending with <code class="docutils literal notranslate"><span class="pre">*/</span></code>.</p></li>
+<li><p>For Vyper, use <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code> indented to the inner contents with bare
+comments. See the <a class="reference external" href="https://docs.vyperlang.org/en/latest/natspec.html">Vyper
+documentation</a>.</p></li>
+</ul>
+<p>The following example shows a contract and a function using all available tags.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Solidity compiler only interprets tags if they are external or
+public. You are welcome to use similar comments for your internal and
+private functions, but those will not be parsed.</p>
+<p>This may change in the future.</p>
+</div>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjIgPCAwLjkuMDsKCi8vLyBAdGl0bGUgQSBzaW11bGF0b3IgZm9yIHRyZWVzCi8vLyBAYXV0aG9yIExhcnJ5IEEuIEdhcmRuZXIKLy8vIEBub3RpY2UgWW91IGNhbiB1c2UgdGhpcyBjb250cmFjdCBmb3Igb25seSB0aGUgbW9zdCBiYXNpYyBzaW11bGF0aW9uCi8vLyBAZGV2IEFsbCBmdW5jdGlvbiBjYWxscyBhcmUgY3VycmVudGx5IGltcGxlbWVudGVkIHdpdGhvdXQgc2lkZSBlZmZlY3RzCi8vLyBAY3VzdG9tOmV4cGVyaW1lbnRhbCBUaGlzIGlzIGFuIGV4cGVyaW1lbnRhbCBjb250cmFjdC4KY29udHJhY3QgVHJlZSB7CiAgICAvLy8gQG5vdGljZSBDYWxjdWxhdGUgdHJlZSBhZ2UgaW4geWVhcnMsIHJvdW5kZWQgdXAsIGZvciBsaXZlIHRyZWVzCiAgICAvLy8gQGRldiBUaGUgQWxleGFuZHIgTi4gVGV0ZWFyaW5nIGFsZ29yaXRobSBjb3VsZCBpbmNyZWFzZSBwcmVjaXNpb24KICAgIC8vLyBAcGFyYW0gcmluZ3MgVGhlIG51bWJlciBvZiByaW5ncyBmcm9tIGRlbmRyb2Nocm9ub2xvZ2ljYWwgc2FtcGxlCiAgICAvLy8gQHJldHVybiBBZ2UgaW4geWVhcnMsIHJvdW5kZWQgdXAgZm9yIHBhcnRpYWwgeWVhcnMKICAgIGZ1bmN0aW9uIGFnZSh1aW50MjU2IHJpbmdzKSBleHRlcm5hbCB2aXJ0dWFsIHB1cmUgcmV0dXJucyAodWludDI1NikgewogICAgICAgIHJldHVybiByaW5ncyArIDE7CiAgICB9CgogICAgLy8vIEBub3RpY2UgUmV0dXJucyB0aGUgYW1vdW50IG9mIGxlYXZlcyB0aGUgdHJlZSBoYXMuCiAgICAvLy8gQGRldiBSZXR1cm5zIG9ubHkgYSBmaXhlZCBudW1iZXIuCiAgICBmdW5jdGlvbiBsZWF2ZXMoKSBleHRlcm5hbCB2aXJ0dWFsIHB1cmUgcmV0dXJucyh1aW50MjU2KSB7CiAgICAgICAgcmV0dXJuIDI7CiAgICB9Cn0KCmNvbnRyYWN0IFBsYW50IHsKICAgIGZ1bmN0aW9uIGxlYXZlcygpIGV4dGVybmFsIHZpcnR1YWwgcHVyZSByZXR1cm5zKHVpbnQyNTYpIHsKICAgICAgICByZXR1cm4gMzsKICAgIH0KfQoKY29udHJhY3QgS3VtcXVhdFRyZWUgaXMgVHJlZSwgUGxhbnQgewogICAgZnVuY3Rpb24gYWdlKHVpbnQyNTYgcmluZ3MpIGV4dGVybmFsIG92ZXJyaWRlIHB1cmUgcmV0dXJucyAodWludDI1NikgewogICAgICAgIHJldHVybiByaW5ncyArIDI7CiAgICB9CgogICAgLy8vIFJldHVybiB0aGUgYW1vdW50IG9mIGxlYXZlcyB0aGF0IHRoaXMgc3BlY2lmaWMga2luZCBvZiB0cmVlIGhhcwogICAgLy8vIEBpbmhlcml0ZG9jIFRyZWUKICAgIGZ1bmN0aW9uIGxlYXZlcygpIGV4dGVybmFsIG92ZXJyaWRlKFRyZWUsIFBsYW50KSBwdXJlIHJldHVybnModWludDI1NikgewogICAgICAgIHJldHVybiAzOwogICAgfQp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.2</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">0.9.0</span><span class="p">;</span>
+
+<span class="c1">/// @title A simulator for trees</span>
+<span class="c1">/// @author Larry A. Gardner</span>
+<span class="c1">/// @notice You can use this contract for only the most basic simulation</span>
+<span class="c1">/// @dev All function calls are currently implemented without side effects</span>
+<span class="c1">/// @custom:experimental This is an experimental contract.</span>
+<span class="k">contract</span><span class="w"> </span><span class="ni">Tree</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">/// @notice Calculate tree age in years, rounded up, for live trees</span>
+<span class="w">    </span><span class="c1">/// @dev The Alexandr N. Tetearing algorithm could increase precision</span>
+<span class="w">    </span><span class="c1">/// @param rings The number of rings from dendrochronological sample</span>
+<span class="w">    </span><span class="c1">/// @return Age in years, rounded up for partial years</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">age</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">rings</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>virtual<span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>rings<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">/// @notice Returns the amount of leaves the tree has.</span>
+<span class="w">    </span><span class="c1">/// @dev Returns only a fixed number.</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">leaves</span><span class="p">()</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>virtual<span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Plant</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">leaves</span><span class="p">()</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>virtual<span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="m m-Decimal">3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">KumquatTree</span><span class="w"> </span><span class="kt">is</span><span class="w"> </span>Tree<span class="p">,</span><span class="w"> </span>Plant<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">age</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">rings</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>override<span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>rings<span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">/// Return the amount of leaves that this specific kind of tree has</span>
+<span class="w">    </span><span class="c1">/// @inheritdoc Tree</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">leaves</span><span class="p">()</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>override<span class="p">(</span>Tree<span class="p">,</span><span class="w"> </span>Plant<span class="p">)</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="m m-Decimal">3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="tags">
+<span id="header-tags"></span><h2>Tags<a class="headerlink" href="#tags" title="Permalink to this heading"></a></h2>
+<p>All tags are optional. The following table explains the purpose of each
+NatSpec tag and where it may be used. As a special case, if no tags are
+used then the Solidity compiler will interpret a <code class="docutils literal notranslate"><span class="pre">///</span></code> or <code class="docutils literal notranslate"><span class="pre">/**</span></code> comment
+in the same way as if it were tagged with <code class="docutils literal notranslate"><span class="pre">&#64;notice</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tag</p></th>
+<th class="head"></th>
+<th class="head"><p>Context</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;title</span></code></p></td>
+<td><p>A title that should describe the contract/interface</p></td>
+<td><p>contract, library, interface</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;author</span></code></p></td>
+<td><p>The name of the author</p></td>
+<td><p>contract, library, interface</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;notice</span></code></p></td>
+<td><p>Explain to an end user what this does</p></td>
+<td><p>contract, library, interface, function, public state variable, event</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;dev</span></code></p></td>
+<td><p>Explain to a developer any extra details</p></td>
+<td><p>contract, library, interface, function, state variable, event</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;param</span></code></p></td>
+<td><p>Documents a parameter just like in Doxygen (must be followed by parameter name)</p></td>
+<td><p>function, event</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;return</span></code></p></td>
+<td><p>Documents the return variables of a contract’s function</p></td>
+<td><p>function, public state variable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;inheritdoc</span></code></p></td>
+<td><p>Copies all missing tags from the base function (must be followed by the contract name)</p></td>
+<td><p>function, public state variable</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&#64;custom:...</span></code></p></td>
+<td><p>Custom tag, semantics is application-defined</p></td>
+<td><p>everywhere</p></td>
+</tr>
+</tbody>
+</table>
+<p>If your function returns multiple values, like <code class="docutils literal notranslate"><span class="pre">(int</span> <span class="pre">quotient,</span> <span class="pre">int</span> <span class="pre">remainder)</span></code>
+then use multiple <code class="docutils literal notranslate"><span class="pre">&#64;return</span></code> statements in the same format as the <code class="docutils literal notranslate"><span class="pre">&#64;param</span></code> statements.</p>
+<p>Custom tags start with <code class="docutils literal notranslate"><span class="pre">&#64;custom:</span></code> and must be followed by one or more lowercase letters or hyphens.
+It cannot start with a hyphen however. They can be used everywhere and are part of the developer documentation.</p>
+<section id="dynamic-expressions">
+<span id="header-dynamic"></span><h3>Dynamic expressions<a class="headerlink" href="#dynamic-expressions" title="Permalink to this heading"></a></h3>
+<p>The Solidity compiler will pass through NatSpec documentation from your Solidity
+source code to the JSON output as described in this guide. The consumer of this
+JSON output, for example the end-user client software, may present this to the end-user directly or it may apply some pre-processing.</p>
+<p>For example, some client software will render:</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8vIEBub3RpY2UgVGhpcyBmdW5jdGlvbiB3aWxsIG11bHRpcGx5IGBhYCBieSA3" target="_blank">open in Remix</a></p>
+<div class="highlight-Solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// </span><span class="cs">@notice</span><span class="c1"> This function will multiply `a` by 7</span>
+</pre></div>
+</div>
+<p>to the end-user as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>This function will multiply 10 by 7
+</pre></div>
+</div>
+<p>if a function is being called and the input <code class="docutils literal notranslate"><span class="pre">a</span></code> is assigned a value of 10.</p>
+</section>
+<section id="inheritance-notes">
+<span id="header-inheritance"></span><h3>Inheritance Notes<a class="headerlink" href="#inheritance-notes" title="Permalink to this heading"></a></h3>
+<p>Functions without NatSpec will automatically inherit the documentation of their
+base function. Exceptions to this are:</p>
+<ul class="simple">
+<li><p>When the parameter names are different.</p></li>
+<li><p>When there is more than one base function.</p></li>
+<li><p>When there is an explicit <code class="docutils literal notranslate"><span class="pre">&#64;inheritdoc</span></code> tag which specifies which contract should be used to inherit.</p></li>
+</ul>
+</section>
+</section>
+<section id="documentation-output">
+<span id="header-output"></span><h2>Documentation Output<a class="headerlink" href="#documentation-output" title="Permalink to this heading"></a></h2>
+<p>When parsed by the compiler, documentation such as the one from the
+above example will produce two different JSON files. One is meant to be
+consumed by the end user as a notice when a function is executed and the
+other to be used by the developer.</p>
+<p>If the above contract is saved as <code class="docutils literal notranslate"><span class="pre">ex1.sol</span></code> then you can generate the
+documentation using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>solc<span class="w"> </span>--userdoc<span class="w"> </span>--devdoc<span class="w"> </span>ex1.sol
+</pre></div>
+</div>
+<p>And the output is below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting Solidity version 0.6.11 the NatSpec output also contains a <code class="docutils literal notranslate"><span class="pre">version</span></code> and a <code class="docutils literal notranslate"><span class="pre">kind</span></code> field.
+Currently the <code class="docutils literal notranslate"><span class="pre">version</span></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">kind</span></code> must be one of <code class="docutils literal notranslate"><span class="pre">user</span></code> or <code class="docutils literal notranslate"><span class="pre">dev</span></code>.
+In the future it is possible that new versions will be introduced, deprecating older ones.</p>
+</div>
+<section id="user-documentation">
+<span id="header-user-doc"></span><h3>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this heading"></a></h3>
+<p>The above documentation will produce the following user documentation
+JSON file as output:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;methods&quot;</span><span class="w"> </span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;age(uint256)&quot;</span><span class="w"> </span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;notice&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Calculate tree age in years, rounded up, for live trees&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;notice&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You can use this contract for only the most basic simulation&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that the key by which to find the methods is the function’s
+canonical signature as defined in the <a class="reference internal" href="abi-spec.html#abi-function-selector"><span class="std std-ref">Contract
+ABI</span></a> and not simply the function’s
+name.</p>
+</section>
+<section id="developer-documentation">
+<span id="header-developer-doc"></span><h3>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this heading"></a></h3>
+<p>Apart from the user documentation file, a developer documentation JSON
+file should also be produced and should look like this:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;kind&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dev&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;author&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Larry A. Gardner&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;All function calls are currently implemented without side effects&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;custom:experimental&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is an experimental contract.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;methods&quot;</span><span class="w"> </span><span class="p">:</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;age(uint256)&quot;</span><span class="w"> </span><span class="p">:</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;details&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The Alexandr N. Tetearing algorithm could increase precision&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;params&quot;</span><span class="w"> </span><span class="p">:</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;rings&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The number of rings from dendrochronological sample&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;return&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;age in years, rounded up for partial years&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A simulator for trees&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="080-breaking-changes.html" class="btn btn-neutral float-left" title="Solidity v0.8.0 Breaking Changes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smtchecker.html" class="btn btn-neutral float-right" title="SMTChecker and Formal Verification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2023, The Solidity Authors.
+      <span class="commit">Revision <code>f704f362</code>.
+      </span></p>
+  </div>
+
+  
+    <p>
+        <a href="credits-and-attribution.html">Credits and attribution</a>.
+    </p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book fa-element"> RTD </span>
+
+    <span class="fa fa-element">
+    <input class="container_toggle" type="checkbox" id="switch" name="mode">
+    <label for="switch"></label>
+    </span>
+
+    <span class="fa fa-v fa-element"> v: v0.8.23 <span class="fa fa-caret-down"></span></span>
+
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Downloads</dt> 
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/pdf/">pdf</a></dd>
+            
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/epub/">epub</a></dd>
+            
+        </dl>
+        <dl>
+            <dt>Versions</dt> 
+            <dd><a href="https://docs.soliditylang.org/en/latest/">latest</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/stable/">stable</a></dd>
+            
+            <dd><a href="index.html">v0.8.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.22/">v0.8.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.21/">v0.8.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.20/">v0.8.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.19/">v0.8.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.18/">v0.8.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.17/">v0.8.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.16/">v0.8.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.15/">v0.8.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.14/">v0.8.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.13/">v0.8.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.12/">v0.8.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.11/">v0.8.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.10/">v0.8.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.9/">v0.8.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.8/">v0.8.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.7/">v0.8.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.6/">v0.8.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.5/">v0.8.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.4/">v0.8.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.3/">v0.8.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.2/">v0.8.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.1/">v0.8.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.0/">v0.8.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.6/">v0.7.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.5/">v0.7.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.4/">v0.7.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.3/">v0.7.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.2/">v0.7.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.1/">v0.7.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.0/">v0.7.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.12/">v0.6.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.11/">v0.6.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.10/">v0.6.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.9/">v0.6.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.8/">v0.6.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.7/">v0.6.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.6/">v0.6.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.5/">v0.6.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.4/">v0.6.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.3/">v0.6.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.2/">v0.6.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.1/">v0.6.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.0/">v0.6.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.17/">v0.5.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.16/">v0.5.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.15/">v0.5.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.14/">v0.5.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.13/">v0.5.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.12/">v0.5.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.11/">v0.5.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.10/">v0.5.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.9/">v0.5.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.8/">v0.5.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.7/">v0.5.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.6/">v0.5.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.5/">v0.5.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.4/">v0.5.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.3/">v0.5.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.2/">v0.5.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.1/">v0.5.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.0/">v0.5.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.26/">v0.4.26</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.25/">v0.4.25</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.24/">v0.4.24</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.23/">v0.4.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.22/">v0.4.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.21/">v0.4.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.20/">v0.4.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.19/">v0.4.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.18/">v0.4.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.17/">v0.4.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.16/">v0.4.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.15/">v0.4.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.14/">v0.4.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.13/">v0.4.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.12/">v0.4.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.11/">v0.4.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.10/">v0.4.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.9/">v0.4.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.8/">v0.4.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.7/">v0.4.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.6/">v0.4.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.5/">v0.4.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.4/">v0.4.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.3/">v0.4.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.2/">v0.4.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.1/">v0.4.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.0/">v0.4.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.6/">v0.3.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.5/">v0.3.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.4/">v0.3.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.3/">v0.3.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.2/">v0.3.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.1/">v0.3.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.0/">v0.3.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.2/">v0.2.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.1/">v0.2.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.0/">v0.2.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.7/">v0.1.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.6/">v0.1.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.5/">v0.1.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.4/">v0.1.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.3/">v0.1.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.2/">v0.1.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/develop/">develop</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/breaking/">breaking</a></dd>
+            
+        </dl>
+        <dl>
+            
+            <dt>On Read the Docs</dt>
+            <dd>
+                <a href="http://readthedocs.org/projects/solidity/?fromdocs=solidity">Project Home</a>
+            </dd>
+            <dd>
+                <a href="http://readthedocs.org/builds/solidity/?fromdocs=solidity">Builds</a>
+            </dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/natspec-format.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:17 GMT -->
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/structure-of-a-contract.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Structure of a Contract &mdash; Solidity 0.8.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/a4_railroad_diagram.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/fonts.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/toggle.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-doc-embed.js"></script>
+        <script src="_static/js/constants.js"></script>
+        <script src="_static/js/initialize.js"></script>
+        <script src="_static/js/toggle.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Types" href="types.html" />
+    <link rel="prev" title="Layout of a Solidity Source File" href="layout-of-source-files.html" /> 
+
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="https://docs.soliditylang.org/_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": true, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": null, "language": "en", "page": "structure-of-a-contract", "programming_language": "cpp", "project": "solidity", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_rtd_theme", "user_analytics_code": "", "version": "v0.8.23"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html">
+            
+          </a>
+              <div class="version">
+                v0.8.23
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://docs.soliditylang.org/en/v0.8.23/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction-to-smart-contracts.html">Introduction to Smart Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidity-by-example.html">Solidity by Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-solidity.html">Installing the Solidity Compiler</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Description</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="layout-of-source-files.html">Layout of a Solidity Source File</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Structure of a Contract</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#state-variables">State Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#function-modifiers">Function Modifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#events">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#errors">Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#struct-types">Struct Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enum-types">Enum Types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="units-and-global-variables.html">Units and Globally Available Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control-structures.html">Expressions and Control Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Inline Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grammar.html">Language Grammar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compiler</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="using-the-compiler.html">Using the Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing-compilation-output.html">Analysing the Compiler Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ir-breaking-changes.html">Solidity IR-based Codegen Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_storage.html">Layout of State Variables in Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_memory.html">Layout in Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_calldata.html">Layout of Call Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/variable_cleanup.html">Cleaning Up Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/source_mappings.html">Source Mappings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/optimizer.html">The Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Contract Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abi-spec.html">Contract ABI Specification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advisory content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="security-considerations.html">Security Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">List of Known Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="050-breaking-changes.html">Solidity v0.5.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="060-breaking-changes.html">Solidity v0.6.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="070-breaking-changes.html">Solidity v0.7.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="080-breaking-changes.html">Solidity v0.8.0 Breaking Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="natspec-format.html">NatSpec Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smtchecker.html">SMTChecker and Formal Verification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="yul.html">Yul</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path-resolution.html">Import Path Resolution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="language-influences.html">Language Influences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brand-guide.html">Solidity Brand Guide</a></li>
+</ul>
+
+    <ul>
+        <li>
+            <a href="genindex.html">Keyword Index</a>
+        </li>
+    </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Solidity</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Structure of a Contract</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ethereum/solidity/blob/v0.8.23/docs/structure-of-a-contract.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="structure-of-a-contract">
+<span id="contract-structure"></span><span id="index-0"></span><h1>Structure of a Contract<a class="headerlink" href="#structure-of-a-contract" title="Permalink to this heading"></a></h1>
+<p>Contracts in Solidity are similar to classes in object-oriented languages.
+Each contract can contain declarations of <a class="reference internal" href="#structure-state-variables"><span class="std std-ref">State Variables</span></a>, <a class="reference internal" href="#structure-functions"><span class="std std-ref">Functions</span></a>,
+<a class="reference internal" href="#structure-function-modifiers"><span class="std std-ref">Function Modifiers</span></a>, <a class="reference internal" href="#structure-events"><span class="std std-ref">Events</span></a>, <a class="reference internal" href="#structure-errors"><span class="std std-ref">Errors</span></a>, <a class="reference internal" href="#structure-struct-types"><span class="std std-ref">Struct Types</span></a> and <a class="reference internal" href="#structure-enum-types"><span class="std std-ref">Enum Types</span></a>.
+Furthermore, contracts can inherit from other contracts.</p>
+<p>There are also special kinds of contracts called <a class="reference internal" href="contracts.html#libraries"><span class="std std-ref">libraries</span></a> and <a class="reference internal" href="contracts.html#interfaces"><span class="std std-ref">interfaces</span></a>.</p>
+<p>The section about <a class="reference internal" href="contracts.html#contracts"><span class="std std-ref">contracts</span></a> contains more details than this section,
+which serves to provide a quick overview.</p>
+<section id="state-variables">
+<span id="structure-state-variables"></span><h2>State Variables<a class="headerlink" href="#state-variables" title="Permalink to this heading"></a></h2>
+<p>State variables are variables whose values are permanently stored in contract
+storage.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC40LjAgPDAuOS4wOwoKY29udHJhY3QgU2ltcGxlU3RvcmFnZSB7CiAgICB1aW50IHN0b3JlZERhdGE7IC8vIFN0YXRlIHZhcmlhYmxlCiAgICAvLyAuLi4KfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.4.0</span><span class="w"> </span><span class="o">&lt;</span><span class="k">0.9.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">SimpleStorage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="nv">storedData</span><span class="p">;</span><span class="w"> </span><span class="c1">// State variable</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="types.html#types"><span class="std std-ref">Types</span></a> section for valid state variable types and
+<a class="reference internal" href="contracts.html#visibility-and-getters"><span class="std std-ref">Visibility and Getters</span></a> for possible choices for
+visibility.</p>
+</section>
+<section id="functions">
+<span id="structure-functions"></span><h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h2>
+<p>Functions are the executable units of code. Functions are usually
+defined inside a contract, but they can also be defined outside of
+contracts.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC43LjEgPDAuOS4wOwoKY29udHJhY3QgU2ltcGxlQXVjdGlvbiB7CiAgICBmdW5jdGlvbiBiaWQoKSBwdWJsaWMgcGF5YWJsZSB7IC8vIEZ1bmN0aW9uCiAgICAgICAgLy8gLi4uCiAgICB9Cn0KCi8vIEhlbHBlciBmdW5jdGlvbiBkZWZpbmVkIG91dHNpZGUgb2YgYSBjb250cmFjdApmdW5jdGlvbiBoZWxwZXIodWludCB4KSBwdXJlIHJldHVybnMgKHVpbnQpIHsKICAgIHJldHVybiB4ICogMjsKfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.7.1</span><span class="w"> </span><span class="o">&lt;</span><span class="k">0.9.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">SimpleAuction</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">bid</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">payable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Function</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Helper function defined outside of a contract</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">helper</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">return</span><span class="w"> </span>x<span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="control-structures.html#function-calls"><span class="std std-ref">Function Calls</span></a> can happen internally or externally
+and have different levels of <a class="reference internal" href="contracts.html#visibility-and-getters"><span class="std std-ref">visibility</span></a>
+towards other contracts. <a class="reference internal" href="contracts.html#functions"><span class="std std-ref">Functions</span></a> accept <a class="reference internal" href="contracts.html#function-parameters-return-variables"><span class="std std-ref">parameters and return variables</span></a> to pass parameters
+and values between them.</p>
+</section>
+<section id="function-modifiers">
+<span id="structure-function-modifiers"></span><h2>Function Modifiers<a class="headerlink" href="#function-modifiers" title="Permalink to this heading"></a></h2>
+<p>Function modifiers can be used to amend the semantics of functions in a declarative way
+(see <a class="reference internal" href="contracts.html#modifiers"><span class="std std-ref">Function Modifiers</span></a> in the contracts section).</p>
+<p>Overloading, that is, having the same modifier name with different parameters,
+is not possible.</p>
+<p>Like functions, modifiers can be <a class="reference internal" href="contracts.html#modifier-overriding"><span class="std std-ref">overridden</span></a>.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC40LjIyIDwwLjkuMDsKCmNvbnRyYWN0IFB1cmNoYXNlIHsKICAgIGFkZHJlc3MgcHVibGljIHNlbGxlcjsKCiAgICBtb2RpZmllciBvbmx5U2VsbGVyKCkgeyAvLyBNb2RpZmllcgogICAgICAgIHJlcXVpcmUoCiAgICAgICAgICAgIG1zZy5zZW5kZXIgPT0gc2VsbGVyLAogICAgICAgICAgICAiT25seSBzZWxsZXIgY2FuIGNhbGwgdGhpcy4iCiAgICAgICAgKTsKICAgICAgICBfOwogICAgfQoKICAgIGZ1bmN0aW9uIGFib3J0KCkgcHVibGljIHZpZXcgb25seVNlbGxlciB7IC8vIE1vZGlmaWVyIHVzYWdlCiAgICAgICAgLy8gLi4uCiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.4.22</span><span class="w"> </span><span class="o">&lt;</span><span class="k">0.9.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Purchase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="k">public </span><span class="nv">seller</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">modifier</span><span class="w"> </span>onlySeller<span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Modifier</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>
+<span class="w">            </span><span class="k">msg.sender</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>seller<span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;Only seller can call this.&quot;</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">        </span>_<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">abort</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span>onlySeller<span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Modifier usage</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="events">
+<span id="structure-events"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this heading"></a></h2>
+<p>Events are convenience interfaces with the EVM logging facilities.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5IF4wLjguMjI7CgpldmVudCBIaWdoZXN0QmlkSW5jcmVhc2VkKGFkZHJlc3MgYmlkZGVyLCB1aW50IGFtb3VudCk7IC8vIEV2ZW50Cgpjb250cmFjdCBTaW1wbGVBdWN0aW9uIHsKICAgIGZ1bmN0aW9uIGJpZCgpIHB1YmxpYyBwYXlhYmxlIHsKICAgICAgICAvLyAuLi4KICAgICAgICBlbWl0IEhpZ2hlc3RCaWRJbmNyZWFzZWQobXNnLnNlbmRlciwgbXNnLnZhbHVlKTsgLy8gVHJpZ2dlcmluZyBldmVudAogICAgfQp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.8.22</span><span class="p">;</span>
+
+<span class="kt">event</span><span class="w"> </span><span class="nv">HighestBidIncreased</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">bidder</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">amount</span><span class="p">);</span><span class="w"> </span><span class="c1">// Event</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">SimpleAuction</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">bid</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="kt">payable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">        </span>emit<span class="w"> </span>HighestBidIncreased<span class="p">(</span><span class="k">msg.sender</span><span class="p">,</span><span class="w"> </span><span class="k">msg.value</span><span class="p">);</span><span class="w"> </span><span class="c1">// Triggering event</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="contracts.html#events"><span class="std std-ref">Events</span></a> in contracts section for information on how events are declared
+and can be used from within a dapp.</p>
+</section>
+<section id="errors">
+<span id="structure-errors"></span><h2>Errors<a class="headerlink" href="#errors" title="Permalink to this heading"></a></h2>
+<p>Errors allow you to define descriptive names and data for failure situations.
+Errors can be used in <a class="reference internal" href="control-structures.html#revert-statement"><span class="std std-ref">revert statements</span></a>.
+In comparison to string descriptions, errors are much cheaper and allow you
+to encode additional data. You can use NatSpec to describe the error to
+the user.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5IF4wLjguNDsKCi8vLyBOb3QgZW5vdWdoIGZ1bmRzIGZvciB0cmFuc2Zlci4gUmVxdWVzdGVkIGByZXF1ZXN0ZWRgLAovLy8gYnV0IG9ubHkgYGF2YWlsYWJsZWAgYXZhaWxhYmxlLgplcnJvciBOb3RFbm91Z2hGdW5kcyh1aW50IHJlcXVlc3RlZCwgdWludCBhdmFpbGFibGUpOwoKY29udHJhY3QgVG9rZW4gewogICAgbWFwcGluZyhhZGRyZXNzID0+IHVpbnQpIGJhbGFuY2VzOwogICAgZnVuY3Rpb24gdHJhbnNmZXIoYWRkcmVzcyB0bywgdWludCBhbW91bnQpIHB1YmxpYyB7CiAgICAgICAgdWludCBiYWxhbmNlID0gYmFsYW5jZXNbbXNnLnNlbmRlcl07CiAgICAgICAgaWYgKGJhbGFuY2UgPCBhbW91bnQpCiAgICAgICAgICAgIHJldmVydCBOb3RFbm91Z2hGdW5kcyhhbW91bnQsIGJhbGFuY2UpOwogICAgICAgIGJhbGFuY2VzW21zZy5zZW5kZXJdIC09IGFtb3VudDsKICAgICAgICBiYWxhbmNlc1t0b10gKz0gYW1vdW50OwogICAgICAgIC8vIC4uLgogICAgfQp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">^</span><span class="k">0.8.4</span><span class="p">;</span>
+
+<span class="c1">/// Not enough funds for transfer. Requested `requested`,</span>
+<span class="c1">/// but only `available` available.</span>
+error<span class="w"> </span>NotEnoughFunds<span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">requested</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">available</span><span class="p">);</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Token</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">mapping</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span>balances<span class="p">;</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">amount</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>balances<span class="p">[</span><span class="k">msg.sender</span><span class="p">];</span>
+<span class="w">        </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>balance<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>amount<span class="p">)</span>
+<span class="w">            </span>revert<span class="w"> </span>NotEnoughFunds<span class="p">(</span>amount<span class="p">,</span><span class="w"> </span>balance<span class="p">);</span>
+<span class="w">        </span>balances<span class="p">[</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>amount<span class="p">;</span>
+<span class="w">        </span>balances<span class="p">[</span>to<span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>amount<span class="p">;</span>
+<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="contracts.html#errors"><span class="std std-ref">Errors and the Revert Statement</span></a> in the contracts section for more information.</p>
+</section>
+<section id="struct-types">
+<span id="structure-struct-types"></span><h2>Struct Types<a class="headerlink" href="#struct-types" title="Permalink to this heading"></a></h2>
+<p>Structs are custom defined types that can group several variables (see
+<a class="reference internal" href="types.html#structs"><span class="std std-ref">Structs</span></a> in types section).</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC40LjAgPDAuOS4wOwoKY29udHJhY3QgQmFsbG90IHsKICAgIHN0cnVjdCBWb3RlciB7IC8vIFN0cnVjdAogICAgICAgIHVpbnQgd2VpZ2h0OwogICAgICAgIGJvb2wgdm90ZWQ7CiAgICAgICAgYWRkcmVzcyBkZWxlZ2F0ZTsKICAgICAgICB1aW50IHZvdGU7CiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.4.0</span><span class="w"> </span><span class="o">&lt;</span><span class="k">0.9.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Ballot</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">struct</span><span class="w"> </span><span class="nv">Voter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Struct</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">weight</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="nv">voted</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">address</span><span class="w"> </span><span class="nv">delegate</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">vote</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="enum-types">
+<span id="structure-enum-types"></span><h2>Enum Types<a class="headerlink" href="#enum-types" title="Permalink to this heading"></a></h2>
+<p>Enums can be used to create custom types with a finite set of ‘constant values’ (see
+<a class="reference internal" href="types.html#enums"><span class="std std-ref">Enums</span></a> in types section).</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC40LjAgPDAuOS4wOwoKY29udHJhY3QgUHVyY2hhc2UgewogICAgZW51bSBTdGF0ZSB7IENyZWF0ZWQsIExvY2tlZCwgSW5hY3RpdmUgfSAvLyBFbnVtCn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.4.0</span><span class="w"> </span><span class="o">&lt;</span><span class="k">0.9.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Purchase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">enum</span><span class="w"> </span><span class="nv">State</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>Created<span class="p">,</span><span class="w"> </span>Locked<span class="p">,</span><span class="w"> </span>Inactive<span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// Enum</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="layout-of-source-files.html" class="btn btn-neutral float-left" title="Layout of a Solidity Source File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="types.html" class="btn btn-neutral float-right" title="Types" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2023, The Solidity Authors.
+      <span class="commit">Revision <code>f704f362</code>.
+      </span></p>
+  </div>
+
+  
+    <p>
+        <a href="credits-and-attribution.html">Credits and attribution</a>.
+    </p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book fa-element"> RTD </span>
+
+    <span class="fa fa-element">
+    <input class="container_toggle" type="checkbox" id="switch" name="mode">
+    <label for="switch"></label>
+    </span>
+
+    <span class="fa fa-v fa-element"> v: v0.8.23 <span class="fa fa-caret-down"></span></span>
+
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Downloads</dt> 
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/pdf/">pdf</a></dd>
+            
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/epub/">epub</a></dd>
+            
+        </dl>
+        <dl>
+            <dt>Versions</dt> 
+            <dd><a href="https://docs.soliditylang.org/en/latest/">latest</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/stable/">stable</a></dd>
+            
+            <dd><a href="index.html">v0.8.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.22/">v0.8.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.21/">v0.8.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.20/">v0.8.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.19/">v0.8.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.18/">v0.8.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.17/">v0.8.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.16/">v0.8.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.15/">v0.8.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.14/">v0.8.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.13/">v0.8.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.12/">v0.8.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.11/">v0.8.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.10/">v0.8.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.9/">v0.8.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.8/">v0.8.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.7/">v0.8.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.6/">v0.8.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.5/">v0.8.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.4/">v0.8.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.3/">v0.8.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.2/">v0.8.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.1/">v0.8.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.0/">v0.8.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.6/">v0.7.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.5/">v0.7.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.4/">v0.7.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.3/">v0.7.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.2/">v0.7.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.1/">v0.7.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.0/">v0.7.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.12/">v0.6.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.11/">v0.6.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.10/">v0.6.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.9/">v0.6.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.8/">v0.6.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.7/">v0.6.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.6/">v0.6.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.5/">v0.6.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.4/">v0.6.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.3/">v0.6.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.2/">v0.6.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.1/">v0.6.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.0/">v0.6.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.17/">v0.5.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.16/">v0.5.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.15/">v0.5.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.14/">v0.5.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.13/">v0.5.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.12/">v0.5.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.11/">v0.5.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.10/">v0.5.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.9/">v0.5.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.8/">v0.5.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.7/">v0.5.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.6/">v0.5.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.5/">v0.5.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.4/">v0.5.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.3/">v0.5.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.2/">v0.5.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.1/">v0.5.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.0/">v0.5.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.26/">v0.4.26</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.25/">v0.4.25</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.24/">v0.4.24</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.23/">v0.4.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.22/">v0.4.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.21/">v0.4.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.20/">v0.4.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.19/">v0.4.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.18/">v0.4.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.17/">v0.4.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.16/">v0.4.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.15/">v0.4.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.14/">v0.4.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.13/">v0.4.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.12/">v0.4.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.11/">v0.4.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.10/">v0.4.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.9/">v0.4.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.8/">v0.4.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.7/">v0.4.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.6/">v0.4.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.5/">v0.4.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.4/">v0.4.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.3/">v0.4.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.2/">v0.4.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.1/">v0.4.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.0/">v0.4.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.6/">v0.3.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.5/">v0.3.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.4/">v0.3.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.3/">v0.3.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.2/">v0.3.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.1/">v0.3.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.0/">v0.3.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.2/">v0.2.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.1/">v0.2.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.0/">v0.2.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.7/">v0.1.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.6/">v0.1.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.5/">v0.1.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.4/">v0.1.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.3/">v0.1.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.2/">v0.1.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/develop/">develop</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/breaking/">breaking</a></dd>
+            
+        </dl>
+        <dl>
+            
+            <dt>On Read the Docs</dt>
+            <dd>
+                <a href="http://readthedocs.org/projects/solidity/?fromdocs=solidity">Project Home</a>
+            </dd>
+            <dd>
+                <a href="http://readthedocs.org/builds/solidity/?fromdocs=solidity">Builds</a>
+            </dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/structure-of-a-contract.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:16 GMT -->
+</html>

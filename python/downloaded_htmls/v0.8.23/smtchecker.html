@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/smtchecker.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMTChecker and Formal Verification &mdash; Solidity 0.8.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/a4_railroad_diagram.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/fonts.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/toggle.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script async="async" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-doc-embed.js"></script>
+        <script src="_static/js/constants.js"></script>
+        <script src="_static/js/initialize.js"></script>
+        <script src="_static/js/toggle.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Yul" href="yul.html" />
+    <link rel="prev" title="NatSpec Format" href="natspec-format.html" /> 
+
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="https://docs.soliditylang.org/_/static/css/readthedocs-doc-embed.css" type="text/css" />
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": true, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": null, "language": "en", "page": "smtchecker", "programming_language": "cpp", "project": "solidity", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_rtd_theme", "user_analytics_code": "", "version": "v0.8.23"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="https://docs.soliditylang.org/_/static/javascript/readthedocs-analytics.js" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index-2.html">
+            
+          </a>
+              <div class="version">
+                v0.8.23
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://docs.soliditylang.org/en/v0.8.23/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction-to-smart-contracts.html">Introduction to Smart Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solidity-by-example.html">Solidity by Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing-solidity.html">Installing the Solidity Compiler</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language Description</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="layout-of-source-files.html">Layout of a Solidity Source File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure-of-a-contract.html">Structure of a Contract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="units-and-global-variables.html">Units and Globally Available Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="control-structures.html">Expressions and Control Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contracts.html">Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly.html">Inline Assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grammar.html">Language Grammar</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compiler</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="using-the-compiler.html">Using the Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analysing-compilation-output.html">Analysing the Compiler Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ir-breaking-changes.html">Solidity IR-based Codegen Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_storage.html">Layout of State Variables in Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_memory.html">Layout in Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/layout_in_calldata.html">Layout of Call Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/variable_cleanup.html">Cleaning Up Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/source_mappings.html">Source Mappings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internals/optimizer.html">The Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Contract Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="abi-spec.html">Contract ABI Specification</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advisory content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="security-considerations.html">Security Considerations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">List of Known Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="050-breaking-changes.html">Solidity v0.5.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="060-breaking-changes.html">Solidity v0.6.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="070-breaking-changes.html">Solidity v0.7.0 Breaking Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="080-breaking-changes.html">Solidity v0.8.0 Breaking Changes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="natspec-format.html">NatSpec Format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SMTChecker and Formal Verification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial">Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overflow">Overflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assert">Assert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#state-properties">State Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#external-calls-and-reentrancy">External Calls and Reentrancy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smtchecker-options-and-tuning">SMTChecker Options and Tuning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#timeout">Timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verification-targets">Verification Targets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#proved-targets">Proved Targets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unproved-targets">Unproved Targets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unsupported-language-features">Unsupported Language Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verified-contracts">Verified Contracts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trusted-external-calls">Trusted External Calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reported-inferred-inductive-invariants">Reported Inferred Inductive Invariants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#division-and-modulo-with-slack-variables">Division and Modulo With Slack Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#natspec-function-abstraction">Natspec Function Abstraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-checking-engines">Model Checking Engines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bounded-model-checker-bmc">Bounded Model Checker (BMC)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#constrained-horn-clauses-chc">Constrained Horn Clauses (CHC)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#smt-and-horn-solvers">SMT and Horn solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#abstraction-and-false-positives">Abstraction and False Positives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smt-encoding-and-types">SMT Encoding and Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-calls">Function Calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference-types-and-aliasing">Reference Types and Aliasing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contract-balance">Contract Balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#real-world-assumptions">Real World Assumptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="yul.html">Yul</a></li>
+<li class="toctree-l1"><a class="reference internal" href="path-resolution.html">Import Path Resolution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="style-guide.html">Style Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="language-influences.html">Language Influences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="brand-guide.html">Solidity Brand Guide</a></li>
+</ul>
+
+    <ul>
+        <li>
+            <a href="genindex.html">Keyword Index</a>
+        </li>
+    </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Solidity</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index-2.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SMTChecker and Formal Verification</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ethereum/solidity/blob/v0.8.23/docs/smtchecker.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="smtchecker-and-formal-verification">
+<span id="formal-verification"></span><h1>SMTChecker and Formal Verification<a class="headerlink" href="#smtchecker-and-formal-verification" title="Permalink to this heading"></a></h1>
+<p>Using formal verification it is possible to perform an automated mathematical
+proof that your source code fulfills a certain formal specification.
+The specification is still formal (just as the source code), but usually much
+simpler.</p>
+<p>Note that formal verification itself can only help you understand the
+difference between what you did (the specification) and how you did it
+(the actual implementation). You still need to check whether the specification
+is what you wanted and that you did not miss any unintended effects of it.</p>
+<p>Solidity implements a formal verification approach based on
+<a class="reference external" href="https://en.wikipedia.org/wiki/Satisfiability_modulo_theories">SMT (Satisfiability Modulo Theories)</a> and
+<a class="reference external" href="https://en.wikipedia.org/wiki/Horn-satisfiability">Horn</a> solving.
+The SMTChecker module automatically tries to prove that the code satisfies the
+specification given by <code class="docutils literal notranslate"><span class="pre">require</span></code> and <code class="docutils literal notranslate"><span class="pre">assert</span></code> statements. That is, it considers
+<code class="docutils literal notranslate"><span class="pre">require</span></code> statements as assumptions and tries to prove that the conditions
+inside <code class="docutils literal notranslate"><span class="pre">assert</span></code> statements are always true.  If an assertion failure is
+found, a counterexample may be given to the user showing how the assertion can
+be violated. If no warning is given by the SMTChecker for a property,
+it means that the property is safe.</p>
+<p>The other verification targets that the SMTChecker checks at compile time are:</p>
+<ul class="simple">
+<li><p>Arithmetic underflow and overflow.</p></li>
+<li><p>Division by zero.</p></li>
+<li><p>Trivial conditions and unreachable code.</p></li>
+<li><p>Popping an empty array.</p></li>
+<li><p>Out of bounds index access.</p></li>
+<li><p>Insufficient funds for a transfer.</p></li>
+</ul>
+<p>All the targets above are automatically checked by default if all engines are
+enabled, except underflow and overflow for Solidity &gt;=0.8.7.</p>
+<p>The potential warnings that the SMTChecker reports are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;failing</span>&#160; <span class="pre">property&gt;</span> <span class="pre">happens</span> <span class="pre">here.</span></code>. This means that the SMTChecker proved that a certain property fails. A counterexample may be given, however in complex situations it may also not show a counterexample. This result may also be a false positive in certain cases, when the SMT encoding adds abstractions for Solidity code that is either hard or impossible to express.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;failing</span> <span class="pre">property&gt;</span> <span class="pre">might</span> <span class="pre">happen</span> <span class="pre">here</span></code>. This means that the solver could not prove either case within the given timeout. Since the result is unknown, the SMTChecker reports the potential failure for soundness. This may be solved by increasing the query timeout, but the problem might also simply be too hard for the engine to solve.</p></li>
+</ul>
+<p>To enable the SMTChecker, you must select <a class="reference internal" href="#smtchecker-engines"><span class="std std-ref">which engine should run</span></a>,
+where the default is no engine. Selecting the engine enables the SMTChecker on all files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prior to Solidity 0.8.4, the default way to enable the SMTChecker was via
+<code class="docutils literal notranslate"><span class="pre">pragma</span> <span class="pre">experimental</span> <span class="pre">SMTChecker;</span></code> and only the contracts containing the
+pragma would be analyzed. That pragma has been deprecated, and although it
+still enables the SMTChecker for backwards compatibility, it will be removed
+in Solidity 0.9.0. Note also that now using the pragma even in a single file
+enables the SMTChecker for all files.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The lack of warnings for a verification target represents an undisputed
+mathematical proof of correctness, assuming no bugs in the SMTChecker and
+the underlying solver. Keep in mind that these problems are
+<em>very hard</em> and sometimes <em>impossible</em> to solve automatically in the
+general case.  Therefore, several properties might not be solved or might
+lead to false positives for large contracts. Every proven property should
+be seen as an important achievement. For advanced users, see <a class="reference internal" href="#smtchecker-options"><span class="std std-ref">SMTChecker Tuning</span></a>
+to learn a few options that might help proving more complex
+properties.</p>
+</div>
+<section id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this heading"></a></h2>
+<section id="overflow">
+<h3>Overflow<a class="headerlink" href="#overflow" title="Permalink to this heading"></a></h3>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBPdmVyZmxvdyB7CiAgICB1aW50IGltbXV0YWJsZSB4OwogICAgdWludCBpbW11dGFibGUgeTsKCiAgICBmdW5jdGlvbiBhZGQodWludCB4XywgdWludCB5XykgaW50ZXJuYWwgcHVyZSByZXR1cm5zICh1aW50KSB7CiAgICAgICAgcmV0dXJuIHhfICsgeV87CiAgICB9CgogICAgY29uc3RydWN0b3IodWludCB4XywgdWludCB5XykgewogICAgICAgICh4LCB5KSA9ICh4XywgeV8pOwogICAgfQoKICAgIGZ1bmN0aW9uIHN0YXRlQWRkKCkgcHVibGljIHZpZXcgcmV0dXJucyAodWludCkgewogICAgICAgIHJldHVybiBhZGQoeCwgeSk7CiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Overflow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="nv">immutable</span><span class="w"> </span>x<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="nv">immutable</span><span class="w"> </span>y<span class="p">;</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">add</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x_</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">y_</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>x_<span class="w"> </span><span class="o">+</span><span class="w"> </span>y_<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">constructor</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x_</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">y_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">(</span>x<span class="p">,</span><span class="w"> </span>y<span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>x_<span class="p">,</span><span class="w"> </span>y_<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">stateAdd</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>add<span class="p">(</span>x<span class="p">,</span><span class="w"> </span>y<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The contract above shows an overflow check example.
+The SMTChecker does not check underflow and overflow by default for Solidity &gt;=0.8.7,
+so we need to use the command-line option <code class="docutils literal notranslate"><span class="pre">--model-checker-targets</span> <span class="pre">&quot;underflow,overflow&quot;</span></code>
+or the JSON option <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.targets</span> <span class="pre">=</span> <span class="pre">[&quot;underflow&quot;,</span> <span class="pre">&quot;overflow&quot;]</span></code>.
+See <a class="reference internal" href="#smtchecker-targets"><span class="std std-ref">this section for targets configuration</span></a>.
+Here, it reports the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Warning: CHC: Overflow (resulting value larger than 2**256 - 1) happens here.
+Counterexample:
+x = 1, y = 115792089237316195423570985008687907853269984665640564039457584007913129639935
+ = 0
+
+Transaction trace:
+Overflow.constructor(1, 115792089237316195423570985008687907853269984665640564039457584007913129639935)
+State: x = 1, y = 115792089237316195423570985008687907853269984665640564039457584007913129639935
+Overflow.stateAdd()
+    Overflow.add(1, 115792089237316195423570985008687907853269984665640564039457584007913129639935) -- internal call
+ --&gt; o.sol:9:20:
+  |
+9 |             return x_ + y_;
+  |                    ^^^^^^^
+</pre></div>
+</div>
+<p>If we add <code class="docutils literal notranslate"><span class="pre">require</span></code> statements that filter out overflow cases,
+the SMTChecker proves that no overflow is reachable (by not reporting warnings):</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBPdmVyZmxvdyB7CiAgICB1aW50IGltbXV0YWJsZSB4OwogICAgdWludCBpbW11dGFibGUgeTsKCiAgICBmdW5jdGlvbiBhZGQodWludCB4XywgdWludCB5XykgaW50ZXJuYWwgcHVyZSByZXR1cm5zICh1aW50KSB7CiAgICAgICAgcmV0dXJuIHhfICsgeV87CiAgICB9CgogICAgY29uc3RydWN0b3IodWludCB4XywgdWludCB5XykgewogICAgICAgICh4LCB5KSA9ICh4XywgeV8pOwogICAgfQoKICAgIGZ1bmN0aW9uIHN0YXRlQWRkKCkgcHVibGljIHZpZXcgcmV0dXJucyAodWludCkgewogICAgICAgIHJlcXVpcmUoeCA8IHR5cGUodWludDEyOCkubWF4KTsKICAgICAgICByZXF1aXJlKHkgPCB0eXBlKHVpbnQxMjgpLm1heCk7CiAgICAgICAgcmV0dXJuIGFkZCh4LCB5KTsKICAgIH0KfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Overflow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="nv">immutable</span><span class="w"> </span>x<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="nv">immutable</span><span class="w"> </span>y<span class="p">;</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">add</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x_</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">y_</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>x_<span class="w"> </span><span class="o">+</span><span class="w"> </span>y_<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">constructor</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x_</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">y_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">(</span>x<span class="p">,</span><span class="w"> </span>y<span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span>x_<span class="p">,</span><span class="w"> </span>y_<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">stateAdd</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>x<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">uint128</span><span class="p">).</span>max<span class="p">);</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>y<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">uint128</span><span class="p">).</span>max<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>add<span class="p">(</span>x<span class="p">,</span><span class="w"> </span>y<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="assert">
+<h3>Assert<a class="headerlink" href="#assert" title="Permalink to this heading"></a></h3>
+<p>An assertion represents an invariant in your code: a property that must be true
+<em>for all transactions, including all input and storage values</em>, otherwise there is a bug.</p>
+<p>The code below defines a function <code class="docutils literal notranslate"><span class="pre">f</span></code> that guarantees no overflow.
+Function <code class="docutils literal notranslate"><span class="pre">inv</span></code> defines the specification that <code class="docutils literal notranslate"><span class="pre">f</span></code> is monotonically increasing:
+for every possible pair <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b)</span></code>, if <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">&gt;</span> <span class="pre">a</span></code> then <code class="docutils literal notranslate"><span class="pre">f(b)</span> <span class="pre">&gt;</span> <span class="pre">f(a)</span></code>.
+Since <code class="docutils literal notranslate"><span class="pre">f</span></code> is indeed monotonically increasing, the SMTChecker proves that our
+property is correct. You are encouraged to play with the property and the function
+definition to see what results come out!</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBNb25vdG9uaWMgewogICAgZnVuY3Rpb24gZih1aW50IHgpIGludGVybmFsIHB1cmUgcmV0dXJucyAodWludCkgewogICAgICAgIHJlcXVpcmUoeCA8IHR5cGUodWludDEyOCkubWF4KTsKICAgICAgICByZXR1cm4geCAqIDQyOwogICAgfQoKICAgIGZ1bmN0aW9uIGludih1aW50IGEsIHVpbnQgYikgcHVibGljIHB1cmUgewogICAgICAgIHJlcXVpcmUoYiA+IGEpOwogICAgICAgIGFzc2VydChmKGIpID4gZihhKSk7CiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Monotonic</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">f</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x</span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>x<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">uint128</span><span class="p">).</span>max<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>x<span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">inv</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">a</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">b</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>pure<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>b<span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>a<span class="p">);</span>
+<span class="w">        </span>assert<span class="p">(</span>f<span class="p">(</span>b<span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>f<span class="p">(</span>a<span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can also add assertions inside loops to verify more complicated properties.
+The following code searches for the maximum element of an unrestricted array of
+numbers, and asserts the property that the found element must be greater or
+equal every element in the array.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBNYXggewogICAgZnVuY3Rpb24gbWF4KHVpbnRbXSBtZW1vcnkgYSkgcHVibGljIHB1cmUgcmV0dXJucyAodWludCkgewogICAgICAgIHVpbnQgbSA9IDA7CiAgICAgICAgZm9yICh1aW50IGkgPSAwOyBpIDwgYS5sZW5ndGg7ICsraSkKICAgICAgICAgICAgaWYgKGFbaV0gPiBtKQogICAgICAgICAgICAgICAgbSA9IGFbaV07CgogICAgICAgIGZvciAodWludCBpID0gMDsgaSA8IGEubGVuZ3RoOyArK2kpCiAgICAgICAgICAgIGFzc2VydChtID49IGFbaV0pOwoKICAgICAgICByZXR1cm4gbTsKICAgIH0KfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Max</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">max</span><span class="p">(</span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>a<span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>a<span class="p">.</span>length<span class="p">;</span><span class="w"> </span><span class="o">++</span>i<span class="p">)</span>
+<span class="w">            </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>a<span class="p">[</span>i<span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>m<span class="p">)</span>
+<span class="w">                </span>m<span class="w"> </span><span class="o">=</span><span class="w"> </span>a<span class="p">[</span>i<span class="p">];</span>
+
+<span class="w">        </span><span class="kt">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>a<span class="p">.</span>length<span class="p">;</span><span class="w"> </span><span class="o">++</span>i<span class="p">)</span>
+<span class="w">            </span>assert<span class="p">(</span>m<span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>a<span class="p">[</span>i<span class="p">]);</span>
+
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>m<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that in this example the SMTChecker will automatically try to prove three properties:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">++i</span></code> in the first loop does not overflow.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">++i</span></code> in the second loop does not overflow.</p></li>
+<li><p>The assertion is always true.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The properties involve loops, which makes it <em>much much</em> harder than the previous
+examples, so beware of loops!</p>
+</div>
+<p>All the properties are correctly proven safe. Feel free to change the
+properties and/or add restrictions on the array to see different results.
+For example, changing the code to</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBNYXggewogICAgZnVuY3Rpb24gbWF4KHVpbnRbXSBtZW1vcnkgYSkgcHVibGljIHB1cmUgcmV0dXJucyAodWludCkgewogICAgICAgIHJlcXVpcmUoYS5sZW5ndGggPj0gNSk7CiAgICAgICAgdWludCBtID0gMDsKICAgICAgICBmb3IgKHVpbnQgaSA9IDA7IGkgPCBhLmxlbmd0aDsgKytpKQogICAgICAgICAgICBpZiAoYVtpXSA+IG0pCiAgICAgICAgICAgICAgICBtID0gYVtpXTsKCiAgICAgICAgZm9yICh1aW50IGkgPSAwOyBpIDwgYS5sZW5ndGg7ICsraSkKICAgICAgICAgICAgYXNzZXJ0KG0gPiBhW2ldKTsKCiAgICAgICAgcmV0dXJuIG07CiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Max</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">max</span><span class="p">(</span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>a<span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>a<span class="p">.</span>length<span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m m-Decimal">5</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>a<span class="p">.</span>length<span class="p">;</span><span class="w"> </span><span class="o">++</span>i<span class="p">)</span>
+<span class="w">            </span><span class="kt">if</span><span class="w"> </span><span class="p">(</span>a<span class="p">[</span>i<span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>m<span class="p">)</span>
+<span class="w">                </span>m<span class="w"> </span><span class="o">=</span><span class="w"> </span>a<span class="p">[</span>i<span class="p">];</span>
+
+<span class="w">        </span><span class="kt">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span><span class="w"> </span>i<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>a<span class="p">.</span>length<span class="p">;</span><span class="w"> </span><span class="o">++</span>i<span class="p">)</span>
+<span class="w">            </span>assert<span class="p">(</span>m<span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>a<span class="p">[</span>i<span class="p">]);</span>
+
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>m<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>gives us:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Warning: CHC: Assertion violation happens here.
+Counterexample:
+
+a = [0, 0, 0, 0, 0]
+ = 0
+
+Transaction trace:
+Test.constructor()
+Test.max([0, 0, 0, 0, 0])
+  --&gt; max.sol:14:4:
+   |
+14 |            assert(m &gt; a[i]);
+</pre></div>
+</div>
+</section>
+<section id="state-properties">
+<h3>State Properties<a class="headerlink" href="#state-properties" title="Permalink to this heading"></a></h3>
+<p>So far the examples only demonstrated the use of the SMTChecker over pure code,
+proving properties about specific operations or algorithms.
+A common type of properties in smart contracts are properties that involve the
+state of the contract. Multiple transactions might be needed to make an assertion
+fail for such a property.</p>
+<p>As an example, consider a 2D grid where both axis have coordinates in the range (-2^128, 2^128 - 1).
+Let us place a robot at position (0, 0). The robot can only move diagonally, one step at a time,
+and cannot move outside the grid. The robot’s state machine can be represented by the smart contract
+below.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBSb2JvdCB7CiAgICBpbnQgeCA9IDA7CiAgICBpbnQgeSA9IDA7CgogICAgbW9kaWZpZXIgd2FsbCB7CiAgICAgICAgcmVxdWlyZSh4ID4gdHlwZShpbnQxMjgpLm1pbiAmJiB4IDwgdHlwZShpbnQxMjgpLm1heCk7CiAgICAgICAgcmVxdWlyZSh5ID4gdHlwZShpbnQxMjgpLm1pbiAmJiB5IDwgdHlwZShpbnQxMjgpLm1heCk7CiAgICAgICAgXzsKICAgIH0KCiAgICBmdW5jdGlvbiBtb3ZlTGVmdFVwKCkgd2FsbCBwdWJsaWMgewogICAgICAgIC0teDsKICAgICAgICArK3k7CiAgICB9CgogICAgZnVuY3Rpb24gbW92ZUxlZnREb3duKCkgd2FsbCBwdWJsaWMgewogICAgICAgIC0teDsKICAgICAgICAtLXk7CiAgICB9CgogICAgZnVuY3Rpb24gbW92ZVJpZ2h0VXAoKSB3YWxsIHB1YmxpYyB7CiAgICAgICAgKyt4OwogICAgICAgICsreTsKICAgIH0KCiAgICBmdW5jdGlvbiBtb3ZlUmlnaHREb3duKCkgd2FsbCBwdWJsaWMgewogICAgICAgICsreDsKICAgICAgICAtLXk7CiAgICB9CgogICAgZnVuY3Rpb24gaW52KCkgcHVibGljIHZpZXcgewogICAgICAgIGFzc2VydCgoeCArIHkpICUgMiA9PSAwKTsKICAgIH0KfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Robot</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nv">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nv">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">modifier</span><span class="w"> </span>wall<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>x<span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">int128</span><span class="p">).</span>min<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>x<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">int128</span><span class="p">).</span>max<span class="p">);</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>y<span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">int128</span><span class="p">).</span>min<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>y<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span>type<span class="p">(</span><span class="kt">int128</span><span class="p">).</span>max<span class="p">);</span>
+<span class="w">        </span>_<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">moveLeftUp</span><span class="p">()</span><span class="w"> </span>wall<span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">--</span>x<span class="p">;</span>
+<span class="w">        </span><span class="o">++</span>y<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">moveLeftDown</span><span class="p">()</span><span class="w"> </span>wall<span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">--</span>x<span class="p">;</span>
+<span class="w">        </span><span class="o">--</span>y<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">moveRightUp</span><span class="p">()</span><span class="w"> </span>wall<span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">++</span>x<span class="p">;</span>
+<span class="w">        </span><span class="o">++</span>y<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">moveRightDown</span><span class="p">()</span><span class="w"> </span>wall<span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">++</span>x<span class="p">;</span>
+<span class="w">        </span><span class="o">--</span>y<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">inv</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>assert<span class="p">((</span>x<span class="w"> </span><span class="o">+</span><span class="w"> </span>y<span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Function <code class="docutils literal notranslate"><span class="pre">inv</span></code> represents an invariant of the state machine that <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code>
+must be even.
+The SMTChecker manages to prove that regardless how many commands we give the
+robot, even if infinitely many, the invariant can <em>never</em> fail. The interested
+reader may want to prove that fact manually as well.  Hint: this invariant is
+inductive.</p>
+<p>We can also trick the SMTChecker into giving us a path to a certain position we
+think might be reachable.  We can add the property that (2, 4) is <em>not</em>
+reachable, by adding the following function.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=ZnVuY3Rpb24gcmVhY2hfMl80KCkgcHVibGljIHZpZXcgewogICAgYXNzZXJ0KCEoeCA9PSAyICYmIHkgPT0gNCkpOwp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">reach_2_4</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>assert<span class="p">(</span><span class="o">!</span><span class="p">(</span>x<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>y<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">4</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This property is false, and while proving that the property is false,
+the SMTChecker tells us exactly <em>how</em> to reach (2, 4):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Warning: CHC: Assertion violation happens here.
+Counterexample:
+x = 2, y = 4
+
+Transaction trace:
+Robot.constructor()
+State: x = 0, y = 0
+Robot.moveLeftUp()
+State: x = (- 1), y = 1
+Robot.moveRightUp()
+State: x = 0, y = 2
+Robot.moveRightUp()
+State: x = 1, y = 3
+Robot.moveRightUp()
+State: x = 2, y = 4
+Robot.reach_2_4()
+  --&gt; r.sol:35:4:
+   |
+35 |            assert(!(x == 2 &amp;&amp; y == 4));
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</pre></div>
+</div>
+<p>Note that the path above is not necessarily deterministic, as there are
+other paths that could reach (2, 4). The choice of which path is shown
+might change depending on the used solver, its version, or just randomly.</p>
+</section>
+<section id="external-calls-and-reentrancy">
+<h3>External Calls and Reentrancy<a class="headerlink" href="#external-calls-and-reentrancy" title="Permalink to this heading"></a></h3>
+<p>Every external call is treated as a call to unknown code by the SMTChecker.
+The reasoning behind that is that even if the code of the called contract is
+available at compile time, there is no guarantee that the deployed contract
+will indeed be the same as the contract where the interface came from at
+compile time.</p>
+<p>In some cases, it is possible to automatically infer properties over state
+variables that are still true even if the externally called code can do
+anything, including reenter the caller contract.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7CgppbnRlcmZhY2UgVW5rbm93biB7CiAgICBmdW5jdGlvbiBydW4oKSBleHRlcm5hbDsKfQoKY29udHJhY3QgTXV0ZXggewogICAgdWludCB4OwogICAgYm9vbCBsb2NrOwoKICAgIFVua25vd24gaW1tdXRhYmxlIHVua25vd247CgogICAgY29uc3RydWN0b3IoVW5rbm93biB1KSB7CiAgICAgICAgcmVxdWlyZShhZGRyZXNzKHUpICE9IGFkZHJlc3MoMCkpOwogICAgICAgIHVua25vd24gPSB1OwogICAgfQoKICAgIG1vZGlmaWVyIG11dGV4IHsKICAgICAgICByZXF1aXJlKCFsb2NrKTsKICAgICAgICBsb2NrID0gdHJ1ZTsKICAgICAgICBfOwogICAgICAgIGxvY2sgPSBmYWxzZTsKICAgIH0KCiAgICBmdW5jdGlvbiBzZXQodWludCB4XykgbXV0ZXggcHVibGljIHsKICAgICAgICB4ID0geF87CiAgICB9CgogICAgZnVuY3Rpb24gcnVuKCkgbXV0ZXggcHVibGljIHsKICAgICAgICB1aW50IHhQcmUgPSB4OwogICAgICAgIHVua25vd24ucnVuKCk7CiAgICAgICAgYXNzZXJ0KHhQcmUgPT0geCk7CiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+interface<span class="w"> </span>Unknown<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">run</span><span class="p">()</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Mutex</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="nv">x</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">lock</span><span class="p">;</span>
+
+<span class="w">    </span>Unknown<span class="w"> </span>immutable<span class="w"> </span>unknown<span class="p">;</span>
+
+<span class="w">    </span><span class="kt">constructor</span><span class="p">(</span>Unknown<span class="w"> </span>u<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span>u<span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="m m-Decimal">0</span><span class="p">));</span>
+<span class="w">        </span>unknown<span class="w"> </span><span class="o">=</span><span class="w"> </span>u<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">modifier</span><span class="w"> </span>mutex<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span><span class="o">!</span>lock<span class="p">);</span>
+<span class="w">        </span>lock<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">true</span><span class="p">;</span>
+<span class="w">        </span>_<span class="p">;</span>
+<span class="w">        </span>lock<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">set</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">x_</span><span class="p">)</span><span class="w"> </span>mutex<span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span>x_<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">run</span><span class="p">()</span><span class="w"> </span>mutex<span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">xPre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>x<span class="p">;</span>
+<span class="w">        </span>unknown<span class="p">.</span>run<span class="p">();</span>
+<span class="w">        </span>assert<span class="p">(</span>xPre<span class="w"> </span><span class="o">==</span><span class="w"> </span>x<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The example above shows a contract that uses a mutex flag to forbid reentrancy.
+The solver is able to infer that when <code class="docutils literal notranslate"><span class="pre">unknown.run()</span></code> is called, the contract
+is already “locked”, so it would not be possible to change the value of <code class="docutils literal notranslate"><span class="pre">x</span></code>,
+regardless of what the unknown called code does.</p>
+<p>If we “forget” to use the <code class="docutils literal notranslate"><span class="pre">mutex</span></code> modifier on function <code class="docutils literal notranslate"><span class="pre">set</span></code>, the
+SMTChecker is able to synthesize the behavior of the externally called code so
+that the assertion fails:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Warning: CHC: Assertion violation happens here.
+Counterexample:
+x = 1, lock = true, unknown = 1
+
+Transaction trace:
+Mutex.constructor(1)
+State: x = 0, lock = false, unknown = 1
+Mutex.run()
+    unknown.run() -- untrusted external call, synthesized as:
+        Mutex.set(1) -- reentrant call
+  --&gt; m.sol:32:3:
+   |
+32 |                assert(xPre == x);
+   |                ^^^^^^^^^^^^^^^^^
+</pre></div>
+</div>
+</section>
+</section>
+<section id="smtchecker-options-and-tuning">
+<span id="smtchecker-options"></span><h2>SMTChecker Options and Tuning<a class="headerlink" href="#smtchecker-options-and-tuning" title="Permalink to this heading"></a></h2>
+<section id="timeout">
+<h3>Timeout<a class="headerlink" href="#timeout" title="Permalink to this heading"></a></h3>
+<p>The SMTChecker uses a hardcoded resource limit (<code class="docutils literal notranslate"><span class="pre">rlimit</span></code>) chosen per solver,
+which is not precisely related to time. We chose the <code class="docutils literal notranslate"><span class="pre">rlimit</span></code> option as the default
+because it gives more determinism guarantees than time inside the solver.</p>
+<p>This options translates roughly to “a few seconds timeout” per query. Of course many properties
+are very complex and need a lot of time to be solved, where determinism does not matter.
+If the SMTChecker does not manage to solve the contract properties with the default <code class="docutils literal notranslate"><span class="pre">rlimit</span></code>,
+a timeout can be given in milliseconds via the CLI option <code class="docutils literal notranslate"><span class="pre">--model-checker-timeout</span> <span class="pre">&lt;time&gt;</span></code> or
+the JSON option <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.timeout=&lt;time&gt;</span></code>, where 0 means no timeout.</p>
+</section>
+<section id="verification-targets">
+<span id="smtchecker-targets"></span><h3>Verification Targets<a class="headerlink" href="#verification-targets" title="Permalink to this heading"></a></h3>
+<p>The types of verification targets created by the SMTChecker can also be
+customized via the CLI option <code class="docutils literal notranslate"><span class="pre">--model-checker-target</span> <span class="pre">&lt;targets&gt;</span></code> or the JSON
+option <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.targets=&lt;targets&gt;</span></code>.
+In the CLI case, <code class="docutils literal notranslate"><span class="pre">&lt;targets&gt;</span></code> is a no-space-comma-separated list of one or
+more verification targets, and an array of one or more targets as strings in
+the JSON input.
+The keywords that represent the targets are:</p>
+<ul class="simple">
+<li><p>Assertions: <code class="docutils literal notranslate"><span class="pre">assert</span></code>.</p></li>
+<li><p>Arithmetic underflow: <code class="docutils literal notranslate"><span class="pre">underflow</span></code>.</p></li>
+<li><p>Arithmetic overflow: <code class="docutils literal notranslate"><span class="pre">overflow</span></code>.</p></li>
+<li><p>Division by zero: <code class="docutils literal notranslate"><span class="pre">divByZero</span></code>.</p></li>
+<li><p>Trivial conditions and unreachable code: <code class="docutils literal notranslate"><span class="pre">constantCondition</span></code>.</p></li>
+<li><p>Popping an empty array: <code class="docutils literal notranslate"><span class="pre">popEmptyArray</span></code>.</p></li>
+<li><p>Out of bounds array/fixed bytes index access: <code class="docutils literal notranslate"><span class="pre">outOfBounds</span></code>.</p></li>
+<li><p>Insufficient funds for a transfer: <code class="docutils literal notranslate"><span class="pre">balance</span></code>.</p></li>
+<li><p>All of the above: <code class="docutils literal notranslate"><span class="pre">default</span></code> (CLI only).</p></li>
+</ul>
+<p>A common subset of targets might be, for example:
+<code class="docutils literal notranslate"><span class="pre">--model-checker-targets</span> <span class="pre">assert,overflow</span></code>.</p>
+<p>All targets are checked by default, except underflow and overflow for Solidity &gt;=0.8.7.</p>
+<p>There is no precise heuristic on how and when to split verification targets,
+but it can be useful especially when dealing with large contracts.</p>
+</section>
+<section id="proved-targets">
+<h3>Proved Targets<a class="headerlink" href="#proved-targets" title="Permalink to this heading"></a></h3>
+<p>If there are any proved targets, the SMTChecker issues one warning per engine stating
+how many targets were proved. If the user wishes to see all the specific
+proved targets, the CLI option <code class="docutils literal notranslate"><span class="pre">--model-checker-show-proved</span></code> and
+the JSON option <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.showProved</span> <span class="pre">=</span> <span class="pre">true</span></code> can be used.</p>
+</section>
+<section id="unproved-targets">
+<h3>Unproved Targets<a class="headerlink" href="#unproved-targets" title="Permalink to this heading"></a></h3>
+<p>If there are any unproved targets, the SMTChecker issues one warning stating
+how many unproved targets there are. If the user wishes to see all the specific
+unproved targets, the CLI option <code class="docutils literal notranslate"><span class="pre">--model-checker-show-unproved</span></code> and
+the JSON option <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.showUnproved</span> <span class="pre">=</span> <span class="pre">true</span></code> can be used.</p>
+</section>
+<section id="unsupported-language-features">
+<h3>Unsupported Language Features<a class="headerlink" href="#unsupported-language-features" title="Permalink to this heading"></a></h3>
+<p>Certain Solidity language features are not completely supported by the SMT
+encoding that the SMTChecker applies, for example assembly blocks.
+The unsupported construct is abstracted via overapproximation to preserve
+soundness, meaning any properties reported safe are safe even though this
+feature is unsupported.
+However such abstraction may cause false positives when the target properties
+depend on the precise behavior of the unsupported feature.
+If the encoder encounters such cases it will by default report a generic warning
+stating how many unsupported features it has seen.
+If the user wishes to see all the specific unsupported features, the CLI option
+<code class="docutils literal notranslate"><span class="pre">--model-checker-show-unsupported</span></code> and the JSON option
+<code class="docutils literal notranslate"><span class="pre">settings.modelChecker.showUnsupported</span> <span class="pre">=</span> <span class="pre">true</span></code> can be used, where their default
+value is <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+</section>
+<section id="verified-contracts">
+<h3>Verified Contracts<a class="headerlink" href="#verified-contracts" title="Permalink to this heading"></a></h3>
+<p>By default all the deployable contracts in the given sources are analyzed separately as
+the one that will be deployed. This means that if a contract has many direct
+and indirect inheritance parents, all of them will be analyzed on their own,
+even though only the most derived will be accessed directly on the blockchain.
+This causes an unnecessary burden on the SMTChecker and the solver.  To aid
+cases like this, users can specify which contracts should be analyzed as the
+deployed one. The parent contracts are of course still analyzed, but only in
+the context of the most derived contract, reducing the complexity of the
+encoding and generated queries. Note that abstract contracts are by default
+not analyzed as the most derived by the SMTChecker.</p>
+<p>The chosen contracts can be given via a comma-separated list (whitespace is not
+allowed) of &lt;source&gt;:&lt;contract&gt; pairs in the CLI:
+<code class="docutils literal notranslate"><span class="pre">--model-checker-contracts</span> <span class="pre">&quot;&lt;source1.sol:contract1&gt;,&lt;source2.sol:contract2&gt;,&lt;source2.sol:contract3&gt;&quot;</span></code>,
+and via the object <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.contracts</span></code> in the <a class="reference internal" href="using-the-compiler.html#compiler-api"><span class="std std-ref">JSON input</span></a>,
+which has the following form:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;contracts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source1.sol&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;contract1&quot;</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;source2.sol&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;contract2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;contract3&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="trusted-external-calls">
+<h3>Trusted External Calls<a class="headerlink" href="#trusted-external-calls" title="Permalink to this heading"></a></h3>
+<p>By default, the SMTChecker does not assume that compile-time available code
+is the same as the runtime code for external calls. Take the following contracts
+as an example:</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBFeHQgewogICAgdWludCBwdWJsaWMgeDsKICAgIGZ1bmN0aW9uIHNldFgodWludCBfeCkgcHVibGljIHsgeCA9IF94OyB9Cn0KY29udHJhY3QgTXlDb250cmFjdCB7CiAgICBmdW5jdGlvbiBjYWxsRXh0KEV4dCBfZSkgcHVibGljIHsKICAgICAgICBfZS5zZXRYKDQyKTsKICAgICAgICBhc3NlcnQoX2UueCgpID09IDQyKTsKICAgIH0KfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Ext</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="k">public </span><span class="nv">x</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">setX</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">_x</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span>_x<span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">contract</span><span class="w"> </span><span class="ni">MyContract</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">callExt</span><span class="p">(</span>Ext<span class="w"> </span>_e<span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>_e<span class="p">.</span>setX<span class="p">(</span><span class="m m-Decimal">42</span><span class="p">);</span>
+<span class="w">        </span>assert<span class="p">(</span>_e<span class="p">.</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">MyContract.callExt</span></code> is called, an address is given as the argument.
+At deployment time, we cannot know for sure that address <code class="docutils literal notranslate"><span class="pre">_e</span></code> actually
+contains a deployment of contract <code class="docutils literal notranslate"><span class="pre">Ext</span></code>.
+Therefore, the SMTChecker will warn that the assertion above can be violated,
+which is true, if <code class="docutils literal notranslate"><span class="pre">_e</span></code> contains another contract than <code class="docutils literal notranslate"><span class="pre">Ext</span></code>.</p>
+<p>However, it can be useful to treat these external calls as trusted, for example,
+to test that different implementations of an interface conform to the same property.
+This means assuming that address <code class="docutils literal notranslate"><span class="pre">_e</span></code> indeed was deployed as contract <code class="docutils literal notranslate"><span class="pre">Ext</span></code>.
+This mode can be enabled via the CLI option <code class="docutils literal notranslate"><span class="pre">--model-checker-ext-calls=trusted</span></code>
+or the JSON field <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.extCalls:</span> <span class="pre">&quot;trusted&quot;</span></code>.</p>
+<p>Please be aware that enabling this mode can make the SMTChecker analysis much more
+computationally costly.</p>
+<p>An important part of this mode is that it is applied to contract types and high
+level external calls to contracts, and not low level calls such as <code class="docutils literal notranslate"><span class="pre">call</span></code> and
+<code class="docutils literal notranslate"><span class="pre">delegatecall</span></code>. The storage of an address is stored per contract type, and
+the SMTChecker assumes that an externally called contract has the type of the
+caller expression.  Therefore, casting an <code class="docutils literal notranslate"><span class="pre">address</span></code> or a contract to
+different contract types will yield different storage values and can give
+unsound results if the assumptions are inconsistent, such as the example below:</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBEIHsKICAgIGNvbnN0cnVjdG9yKHVpbnQgX3gpIHsgeCA9IF94OyB9CiAgICB1aW50IHB1YmxpYyB4OwogICAgZnVuY3Rpb24gc2V0WCh1aW50IF94KSBwdWJsaWMgeyB4ID0gX3g7IH0KfQoKY29udHJhY3QgRSB7CiAgICBjb25zdHJ1Y3RvcigpIHsgeCA9IDI7IH0KICAgIHVpbnQgcHVibGljIHg7CiAgICBmdW5jdGlvbiBzZXRYKHVpbnQgX3gpIHB1YmxpYyB7IHggPSBfeDsgfQp9Cgpjb250cmFjdCBDIHsKICAgIGZ1bmN0aW9uIGYoKSBwdWJsaWMgewogICAgICAgIGFkZHJlc3MgZCA9IGFkZHJlc3MobmV3IEQoNDIpKTsKCiAgICAgICAgLy8gYGRgIHdhcyBkZXBsb3llZCBhcyBgRGAsIHNvIGl0cyBgeGAgc2hvdWxkIGJlIDQyIG5vdy4KICAgICAgICBhc3NlcnQoRChkKS54KCkgPT0gNDIpOyAvLyBzaG91bGQgaG9sZAogICAgICAgIGFzc2VydChEKGQpLngoKSA9PSA0Myk7IC8vIHNob3VsZCBmYWlsCgogICAgICAgIC8vIEUgYW5kIEQgaGF2ZSB0aGUgc2FtZSBpbnRlcmZhY2UsIHNvIHRoZSBmb2xsb3dpbmcKICAgICAgICAvLyBjYWxsIHdvdWxkIGFsc28gd29yayBhdCBydW50aW1lLgogICAgICAgIC8vIEhvd2V2ZXIsIHRoZSBjaGFuZ2UgdG8gYEUoZClgIGlzIG5vdCByZWZsZWN0ZWQgaW4gYEQoZClgLgogICAgICAgIEUoZCkuc2V0WCgxMDI0KTsKCiAgICAgICAgLy8gUmVhZGluZyBmcm9tIGBEKGQpYCBub3cgd2lsbCBzaG93IG9sZCB2YWx1ZXMuCiAgICAgICAgLy8gVGhlIGFzc2VydGlvbiBiZWxvdyBzaG91bGQgZmFpbCBhdCBydW50aW1lLAogICAgICAgIC8vIGJ1dCBzdWNjZWVkcyBpbiB0aGlzIG1vZGUncyBhbmFseXNpcyAodW5zb3VuZCkuCiAgICAgICAgYXNzZXJ0KEQoZCkueCgpID09IDQyKTsKICAgICAgICAvLyBUaGUgYXNzZXJ0aW9uIGJlbG93IHNob3VsZCBzdWNjZWVkIGF0IHJ1bnRpbWUsCiAgICAgICAgLy8gYnV0IGZhaWxzIGluIHRoaXMgbW9kZSdzIGFuYWx5c2lzIChmYWxzZSBwb3NpdGl2ZSkuCiAgICAgICAgYXNzZXJ0KEQoZCkueCgpID09IDEwMjQpOwogICAgfQp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">D</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">constructor</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">_x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span>_x<span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="k">public </span><span class="nv">x</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">setX</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">_x</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span>_x<span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">E</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="k">public </span><span class="nv">x</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">setX</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">_x</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span>_x<span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">C</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">f</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">address</span><span class="w"> </span><span class="nv">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="kt">new</span><span class="w"> </span>D<span class="p">(</span><span class="m m-Decimal">42</span><span class="p">));</span>
+
+<span class="w">        </span><span class="c1">// `d` was deployed as `D`, so its `x` should be 42 now.</span>
+<span class="w">        </span>assert<span class="p">(</span>D<span class="p">(</span>d<span class="p">).</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">);</span><span class="w"> </span><span class="c1">// should hold</span>
+<span class="w">        </span>assert<span class="p">(</span>D<span class="p">(</span>d<span class="p">).</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">43</span><span class="p">);</span><span class="w"> </span><span class="c1">// should fail</span>
+
+<span class="w">        </span><span class="c1">// E and D have the same interface, so the following</span>
+<span class="w">        </span><span class="c1">// call would also work at runtime.</span>
+<span class="w">        </span><span class="c1">// However, the change to `E(d)` is not reflected in `D(d)`.</span>
+<span class="w">        </span>E<span class="p">(</span>d<span class="p">).</span>setX<span class="p">(</span><span class="m m-Decimal">1024</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Reading from `D(d)` now will show old values.</span>
+<span class="w">        </span><span class="c1">// The assertion below should fail at runtime,</span>
+<span class="w">        </span><span class="c1">// but succeeds in this mode&#39;s analysis (unsound).</span>
+<span class="w">        </span>assert<span class="p">(</span>D<span class="p">(</span>d<span class="p">).</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// The assertion below should succeed at runtime,</span>
+<span class="w">        </span><span class="c1">// but fails in this mode&#39;s analysis (false positive).</span>
+<span class="w">        </span>assert<span class="p">(</span>D<span class="p">(</span>d<span class="p">).</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">1024</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Due to the above, make sure that the trusted external calls to a certain
+variable of <code class="docutils literal notranslate"><span class="pre">address</span></code> or <code class="docutils literal notranslate"><span class="pre">contract</span></code> type always have the same caller
+expression type.</p>
+<p>It is also helpful to cast the called contract’s variable as the type of the
+most derived type in case of inheritance.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7CgppbnRlcmZhY2UgVG9rZW4gewogICAgZnVuY3Rpb24gYmFsYW5jZU9mKGFkZHJlc3MgX2EpIGV4dGVybmFsIHZpZXcgcmV0dXJucyAodWludCk7CiAgICBmdW5jdGlvbiB0cmFuc2ZlcihhZGRyZXNzIF90bywgdWludCBfYW10KSBleHRlcm5hbDsKfQoKY29udHJhY3QgVG9rZW5Db3JyZWN0IGlzIFRva2VuIHsKICAgIG1hcHBpbmcgKGFkZHJlc3MgPT4gdWludCkgYmFsYW5jZTsKICAgIGNvbnN0cnVjdG9yKGFkZHJlc3MgX2EsIHVpbnQgX2IpIHsKICAgICAgICBiYWxhbmNlW19hXSA9IF9iOwogICAgfQogICAgZnVuY3Rpb24gYmFsYW5jZU9mKGFkZHJlc3MgX2EpIHB1YmxpYyB2aWV3IG92ZXJyaWRlIHJldHVybnMgKHVpbnQpIHsKICAgICAgICByZXR1cm4gYmFsYW5jZVtfYV07CiAgICB9CiAgICBmdW5jdGlvbiB0cmFuc2ZlcihhZGRyZXNzIF90bywgdWludCBfYW10KSBwdWJsaWMgb3ZlcnJpZGUgewogICAgICAgIHJlcXVpcmUoYmFsYW5jZVttc2cuc2VuZGVyXSA+PSBfYW10KTsKICAgICAgICBiYWxhbmNlW21zZy5zZW5kZXJdIC09IF9hbXQ7CiAgICAgICAgYmFsYW5jZVtfdG9dICs9IF9hbXQ7CiAgICB9Cn0KCmNvbnRyYWN0IFRlc3QgewogICAgZnVuY3Rpb24gcHJvcGVydHlfdHJhbnNmZXIoYWRkcmVzcyBfdG9rZW4sIGFkZHJlc3MgX3RvLCB1aW50IF9hbXQpIHB1YmxpYyB7CiAgICAgICAgcmVxdWlyZShfdG8gIT0gYWRkcmVzcyh0aGlzKSk7CgogICAgICAgIFRva2VuQ29ycmVjdCB0ID0gVG9rZW5Db3JyZWN0KF90b2tlbik7CgogICAgICAgIHVpbnQgeFByZSA9IHQuYmFsYW5jZU9mKGFkZHJlc3ModGhpcykpOwogICAgICAgIHJlcXVpcmUoeFByZSA+PSBfYW10KTsKICAgICAgICB1aW50IHlQcmUgPSB0LmJhbGFuY2VPZihfdG8pOwoKICAgICAgICB0LnRyYW5zZmVyKF90bywgX2FtdCk7CiAgICAgICAgdWludCB4UG9zdCA9IHQuYmFsYW5jZU9mKGFkZHJlc3ModGhpcykpOwogICAgICAgIHVpbnQgeVBvc3QgPSB0LmJhbGFuY2VPZihfdG8pOwoKICAgICAgICBhc3NlcnQoeFBvc3QgPT0geFByZSAtIF9hbXQpOwogICAgICAgIGFzc2VydCh5UG9zdCA9PSB5UHJlICsgX2FtdCk7CiAgICB9Cn0=" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+interface<span class="w"> </span>Token<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_a</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_amt</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">TokenCorrect</span><span class="w"> </span><span class="kt">is</span><span class="w"> </span>Token<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">mapping</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span>balance<span class="p">;</span>
+<span class="w">    </span><span class="kt">constructor</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_a</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>balance<span class="p">[</span>_a<span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>_b<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_a</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span>override<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>balance<span class="p">[</span>_a<span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_amt</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>override<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>balance<span class="p">[</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>_amt<span class="p">);</span>
+<span class="w">        </span>balance<span class="p">[</span><span class="k">msg.sender</span><span class="p">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span>_amt<span class="p">;</span>
+<span class="w">        </span>balance<span class="p">[</span>_to<span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span>_amt<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Test</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">property_transfer</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">_token</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">_to</span><span class="p">,</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="nv">_amt</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>_to<span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">));</span>
+
+<span class="w">        </span>TokenCorrect<span class="w"> </span>t<span class="w"> </span><span class="o">=</span><span class="w"> </span>TokenCorrect<span class="p">(</span>_token<span class="p">);</span>
+
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">xPre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>t<span class="p">.</span>balanceOf<span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">));</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>xPre<span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span>_amt<span class="p">);</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">yPre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>t<span class="p">.</span>balanceOf<span class="p">(</span>_to<span class="p">);</span>
+
+<span class="w">        </span>t<span class="p">.</span>transfer<span class="p">(</span>_to<span class="p">,</span><span class="w"> </span>_amt<span class="p">);</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">xPost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>t<span class="p">.</span>balanceOf<span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">));</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">yPost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>t<span class="p">.</span>balanceOf<span class="p">(</span>_to<span class="p">);</span>
+
+<span class="w">        </span>assert<span class="p">(</span>xPost<span class="w"> </span><span class="o">==</span><span class="w"> </span>xPre<span class="w"> </span><span class="o">-</span><span class="w"> </span>_amt<span class="p">);</span>
+<span class="w">        </span>assert<span class="p">(</span>yPost<span class="w"> </span><span class="o">==</span><span class="w"> </span>yPre<span class="w"> </span><span class="o">+</span><span class="w"> </span>_amt<span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that in function <code class="docutils literal notranslate"><span class="pre">property_transfer</span></code>, the external calls are
+performed on variable <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+<p>Another caveat of this mode are calls to state variables of contract type
+outside the analyzed contract. In the code below, even though <code class="docutils literal notranslate"><span class="pre">B</span></code> deploys
+<code class="docutils literal notranslate"><span class="pre">A</span></code>, it is also possible for the address stored in <code class="docutils literal notranslate"><span class="pre">B.a</span></code> to be called by
+anyone outside of <code class="docutils literal notranslate"><span class="pre">B</span></code> in between transactions to <code class="docutils literal notranslate"><span class="pre">B</span></code> itself. To reflect the
+possible changes to <code class="docutils literal notranslate"><span class="pre">B.a</span></code>, the encoding allows an unbounded number of calls
+to be made to <code class="docutils literal notranslate"><span class="pre">B.a</span></code> externally. The encoding will keep track of <code class="docutils literal notranslate"><span class="pre">B.a</span></code>’s
+storage, therefore assertion (2) should hold. However, currently the encoding
+allows such calls to be made from <code class="docutils literal notranslate"><span class="pre">B</span></code> conceptually, therefore assertion (3)
+fails.  Making the encoding stronger logically is an extension of the trusted
+mode and is under development. Note that the encoding does not keep track of
+storage for <code class="docutils literal notranslate"><span class="pre">address</span></code> variables, therefore if <code class="docutils literal notranslate"><span class="pre">B.a</span></code> had type <code class="docutils literal notranslate"><span class="pre">address</span></code>
+the encoding would assume that its storage does not change in between
+transactions to <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBBIHsKICAgIHVpbnQgcHVibGljIHg7CiAgICBhZGRyZXNzIGltbXV0YWJsZSBwdWJsaWMgb3duZXI7CiAgICBjb25zdHJ1Y3RvcigpIHsKICAgICAgICBvd25lciA9IG1zZy5zZW5kZXI7CiAgICB9CiAgICBmdW5jdGlvbiBzZXRYKHVpbnQgX3gpIHB1YmxpYyB7CiAgICAgICAgcmVxdWlyZShtc2cuc2VuZGVyID09IG93bmVyKTsKICAgICAgICB4ID0gX3g7CiAgICB9Cn0KCmNvbnRyYWN0IEIgewogICAgQSBhOwogICAgY29uc3RydWN0b3IoKSB7CiAgICAgICAgYSA9IG5ldyBBKCk7CiAgICAgICAgYXNzZXJ0KGEueCgpID09IDApOyAvLyAoMSkgc2hvdWxkIGhvbGQKICAgIH0KICAgIGZ1bmN0aW9uIGcoKSBwdWJsaWMgdmlldyB7CiAgICAgICAgYXNzZXJ0KGEub3duZXIoKSA9PSBhZGRyZXNzKHRoaXMpKTsgLy8gKDIpIHNob3VsZCBob2xkCiAgICAgICAgYXNzZXJ0KGEueCgpID09IDApOyAvLyAoMykgc2hvdWxkIGhvbGQsIGJ1dCBmYWlscyBkdWUgdG8gYSBmYWxzZSBwb3NpdGl2ZQogICAgfQp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="w"> </span><span class="k">public </span><span class="nv">x</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">immutable</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>owner<span class="p">;</span>
+<span class="w">    </span><span class="kt">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>owner<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">msg.sender</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">setX</span><span class="p">(</span><span class="kt">uint</span><span class="w"> </span><span class="nv">_x</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span><span class="k">msg.sender</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>owner<span class="p">);</span>
+<span class="w">        </span>x<span class="w"> </span><span class="o">=</span><span class="w"> </span>_x<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">B</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>A<span class="w"> </span>a<span class="p">;</span>
+<span class="w">    </span><span class="kt">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>a<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">new</span><span class="w"> </span>A<span class="p">();</span>
+<span class="w">        </span>assert<span class="p">(</span>a<span class="p">.</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// (1) should hold</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">g</span><span class="p">()</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>assert<span class="p">(</span>a<span class="p">.</span>owner<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">));</span><span class="w"> </span><span class="c1">// (2) should hold</span>
+<span class="w">        </span>assert<span class="p">(</span>a<span class="p">.</span>x<span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// (3) should hold, but fails due to a false positive</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="reported-inferred-inductive-invariants">
+<h3>Reported Inferred Inductive Invariants<a class="headerlink" href="#reported-inferred-inductive-invariants" title="Permalink to this heading"></a></h3>
+<p>For properties that were proved safe with the CHC engine,
+the SMTChecker can retrieve inductive invariants that were inferred by the Horn
+solver as part of the proof.
+Currently only two types of invariants can be reported to the user:</p>
+<ul class="simple">
+<li><p>Contract Invariants: these are properties over the contract’s state variables
+that are true before and after every possible transaction that the contract may ever run. For example, <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></code>, where <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are a contract’s state variables.</p></li>
+<li><p>Reentrancy Properties: they represent the behavior of the contract
+in the presence of external calls to unknown code. These properties can express a relation
+between the value of the state variables before and after the external call, where the external call is free to do anything, including making reentrant calls to the analyzed contract. Primed variables represent the state variables’ values after said external call. Example: <code class="docutils literal notranslate"><span class="pre">lock</span> <span class="pre">-&gt;</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">x'</span></code>.</p></li>
+</ul>
+<p>The user can choose the type of invariants to be reported using the CLI option <code class="docutils literal notranslate"><span class="pre">--model-checker-invariants</span> <span class="pre">&quot;contract,reentrancy&quot;</span></code> or as an array in the field <code class="docutils literal notranslate"><span class="pre">settings.modelChecker.invariants</span></code> in the <a class="reference internal" href="using-the-compiler.html#compiler-api"><span class="std std-ref">JSON input</span></a>.
+By default the SMTChecker does not report invariants.</p>
+</section>
+<section id="division-and-modulo-with-slack-variables">
+<h3>Division and Modulo With Slack Variables<a class="headerlink" href="#division-and-modulo-with-slack-variables" title="Permalink to this heading"></a></h3>
+<p>Spacer, the default Horn solver used by the SMTChecker, often dislikes division
+and modulo operations inside Horn rules. Because of that, by default the
+Solidity division and modulo operations are encoded using the constraint
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">b</span> <span class="pre">*</span> <span class="pre">d</span> <span class="pre">+</span> <span class="pre">m</span></code> where <code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">/</span> <span class="pre">b</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">%</span> <span class="pre">b</span></code>.
+However, other solvers, such as Eldarica, prefer the syntactically precise operations.
+The command-line flag <code class="docutils literal notranslate"><span class="pre">--model-checker-div-mod-no-slacks</span></code> and the JSON option
+<code class="docutils literal notranslate"><span class="pre">settings.modelChecker.divModNoSlacks</span></code> can be used to toggle the encoding
+depending on the used solver preferences.</p>
+</section>
+<section id="natspec-function-abstraction">
+<h3>Natspec Function Abstraction<a class="headerlink" href="#natspec-function-abstraction" title="Permalink to this heading"></a></h3>
+<p>Certain functions including common math methods such as <code class="docutils literal notranslate"><span class="pre">pow</span></code>
+and <code class="docutils literal notranslate"><span class="pre">sqrt</span></code> may be too complex to be analyzed in a fully automated way.
+These functions can be annotated with Natspec tags that indicate to the
+SMTChecker that these functions should be abstracted. This means that the
+body of the function is not used, and when called, the function will:</p>
+<ul class="simple">
+<li><p>Return a nondeterministic value, and either keep the state variables unchanged if the abstracted function is view/pure, or also set the state variables to nondeterministic values otherwise. This can be used via the annotation <code class="docutils literal notranslate"><span class="pre">///</span> <span class="pre">&#64;custom:smtchecker</span> <span class="pre">abstract-function-nondet</span></code>.</p></li>
+<li><p>Act as an uninterpreted function. This means that the semantics of the function (given by the body) are ignored, and the only property this function has is that given the same input it guarantees the same output. This is currently under development and will be available via the annotation <code class="docutils literal notranslate"><span class="pre">///</span> <span class="pre">&#64;custom:smtchecker</span> <span class="pre">abstract-function-uf</span></code>.</p></li>
+</ul>
+</section>
+<section id="model-checking-engines">
+<span id="smtchecker-engines"></span><h3>Model Checking Engines<a class="headerlink" href="#model-checking-engines" title="Permalink to this heading"></a></h3>
+<p>The SMTChecker module implements two different reasoning engines, a Bounded
+Model Checker (BMC) and a system of Constrained Horn Clauses (CHC).  Both
+engines are currently under development, and have different characteristics.
+The engines are independent and every property warning states from which engine
+it came. Note that all the examples above with counterexamples were
+reported by CHC, the more powerful engine.</p>
+<p>By default both engines are used, where CHC runs first, and every property that
+was not proven is passed over to BMC. You can choose a specific engine via the CLI
+option <code class="docutils literal notranslate"><span class="pre">--model-checker-engine</span> <span class="pre">{all,bmc,chc,none}</span></code> or the JSON option
+<code class="docutils literal notranslate"><span class="pre">settings.modelChecker.engine={all,bmc,chc,none}</span></code>.</p>
+<section id="bounded-model-checker-bmc">
+<h4>Bounded Model Checker (BMC)<a class="headerlink" href="#bounded-model-checker-bmc" title="Permalink to this heading"></a></h4>
+<p>The BMC engine analyzes functions in isolation, that is, it does not take the
+overall behavior of the contract over multiple transactions into account when
+analyzing each function.  Loops are also ignored in this engine at the moment.
+Internal function calls are inlined as long as they are not recursive, directly
+or indirectly. External function calls are inlined if possible. Knowledge
+that is potentially affected by reentrancy is erased.</p>
+<p>The characteristics above make BMC prone to reporting false positives,
+but it is also lightweight and should be able to quickly find small local bugs.</p>
+</section>
+<section id="constrained-horn-clauses-chc">
+<h4>Constrained Horn Clauses (CHC)<a class="headerlink" href="#constrained-horn-clauses-chc" title="Permalink to this heading"></a></h4>
+<p>A contract’s Control Flow Graph (CFG) is modelled as a system of
+Horn clauses, where the life cycle of the contract is represented by a loop
+that can visit every public/external function non-deterministically. This way,
+the behavior of the entire contract over an unbounded number of transactions
+is taken into account when analyzing any function. Loops are fully supported
+by this engine. Internal function calls are supported, and external function
+calls assume the called code is unknown and can do anything.</p>
+<p>The CHC engine is much more powerful than BMC in terms of what it can prove,
+and might require more computing resources.</p>
+</section>
+</section>
+<section id="smt-and-horn-solvers">
+<h3>SMT and Horn solvers<a class="headerlink" href="#smt-and-horn-solvers" title="Permalink to this heading"></a></h3>
+<p>The two engines detailed above use automated theorem provers as their logical
+backends.  BMC uses an SMT solver, whereas CHC uses a Horn solver. Often the
+same tool can act as both, as seen in <a class="reference external" href="https://github.com/Z3Prover/z3">z3</a>,
+which is primarily an SMT solver and makes <a class="reference external" href="https://spacer.bitbucket.io/">Spacer</a> available as a Horn solver, and <a class="reference external" href="https://github.com/uuverifiers/eldarica">Eldarica</a> which does both.</p>
+<p>The user can choose which solvers should be used, if available, via the CLI
+option <code class="docutils literal notranslate"><span class="pre">--model-checker-solvers</span> <span class="pre">{all,cvc4,eld,smtlib2,z3}</span></code> or the JSON option
+<code class="docutils literal notranslate"><span class="pre">settings.modelChecker.solvers=[smtlib2,z3]</span></code>, where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cvc4</span></code> is only available if the <code class="docutils literal notranslate"><span class="pre">solc</span></code> binary is compiled with it. Only BMC uses <code class="docutils literal notranslate"><span class="pre">cvc4</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eld</span></code> is used via its binary which must be installed in the system. Only CHC uses <code class="docutils literal notranslate"><span class="pre">eld</span></code>, and only if <code class="docutils literal notranslate"><span class="pre">z3</span></code> is not enabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">smtlib2</span></code> outputs SMT/Horn queries in the <a class="reference external" href="http://smtlib.cs.uiowa.edu/">smtlib2</a> format.
+These can be used together with the compiler’s <a class="reference external" href="https://github.com/ethereum/solc-js">callback mechanism</a> so that
+any solver binary from the system can be employed to synchronously return the results of the queries to the compiler.
+This can be used by both BMC and CHC depending on which solvers are called.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z3</span></code> is available</p>
+<ul>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">solc</span></code> is compiled with it;</p></li>
+<li><p>if a dynamic <code class="docutils literal notranslate"><span class="pre">z3</span></code> library of version &gt;=4.8.x is installed in a Linux system (from Solidity 0.7.6);</p></li>
+<li><p>statically in <code class="docutils literal notranslate"><span class="pre">soljson.js</span></code> (from Solidity 0.6.9), that is, the JavaScript binary of the compiler.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>z3 version 4.8.16 broke ABI compatibility with previous versions and cannot
+be used with solc &lt;=0.8.13. If you are using z3 &gt;=4.8.16 please use solc
+&gt;=0.8.14, and conversely, only use older z3 with older solc releases.
+We also recommend using the latest z3 release which is what SMTChecker also does.</p>
+</div>
+<p>Since both BMC and CHC use <code class="docutils literal notranslate"><span class="pre">z3</span></code>, and <code class="docutils literal notranslate"><span class="pre">z3</span></code> is available in a greater variety
+of environments, including in the browser, most users will almost never need to be
+concerned about this option. More advanced users might apply this option to try
+alternative solvers on more complex problems.</p>
+<p>Please note that certain combinations of chosen engine and solver will lead to
+the SMTChecker doing nothing, for example choosing CHC and <code class="docutils literal notranslate"><span class="pre">cvc4</span></code>.</p>
+</section>
+</section>
+<section id="abstraction-and-false-positives">
+<h2>Abstraction and False Positives<a class="headerlink" href="#abstraction-and-false-positives" title="Permalink to this heading"></a></h2>
+<p>The SMTChecker implements abstractions in an incomplete and sound way: If a bug
+is reported, it might be a false positive introduced by abstractions (due to
+erasing knowledge or using a non-precise type). If it determines that a
+verification target is safe, it is indeed safe, that is, there are no false
+negatives (unless there is a bug in the SMTChecker).</p>
+<p>If a target cannot be proven you can try to help the solver by using the tuning
+options in the previous section.
+If you are sure of a false positive, adding <code class="docutils literal notranslate"><span class="pre">require</span></code> statements in the code
+with more information may also give some more power to the solver.</p>
+<section id="smt-encoding-and-types">
+<h3>SMT Encoding and Types<a class="headerlink" href="#smt-encoding-and-types" title="Permalink to this heading"></a></h3>
+<p>The SMTChecker encoding tries to be as precise as possible, mapping Solidity types
+and expressions to their closest <a class="reference external" href="http://smtlib.cs.uiowa.edu/">SMT-LIB</a>
+representation, as shown in the table below.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Solidity type</p></th>
+<th class="head"><p>SMT sort</p></th>
+<th class="head"><p>Theories</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Boolean</p></td>
+<td><p>Bool</p></td>
+<td><p>Bool</p></td>
+</tr>
+<tr class="row-odd"><td><p>intN, uintN, address,
+bytesN, enum, contract</p></td>
+<td><p>Integer</p></td>
+<td><p>LIA, NIA</p></td>
+</tr>
+<tr class="row-even"><td><p>array, mapping, bytes,
+string</p></td>
+<td><p>Tuple
+(Array elements, Integer length)</p></td>
+<td><p>Datatypes, Arrays, LIA</p></td>
+</tr>
+<tr class="row-odd"><td><p>struct</p></td>
+<td><p>Tuple</p></td>
+<td><p>Datatypes</p></td>
+</tr>
+<tr class="row-even"><td><p>other types</p></td>
+<td><p>Integer</p></td>
+<td><p>LIA</p></td>
+</tr>
+</tbody>
+</table>
+<p>Types that are not yet supported are abstracted by a single 256-bit unsigned
+integer, where their unsupported operations are ignored.</p>
+<p>For more details on how the SMT encoding works internally, see the paper
+<a class="reference external" href="https://github.com/chriseth/solidity_isola/blob/master/main.pdf">SMT-based Verification of Solidity Smart Contracts</a>.</p>
+</section>
+<section id="function-calls">
+<h3>Function Calls<a class="headerlink" href="#function-calls" title="Permalink to this heading"></a></h3>
+<p>In the BMC engine, function calls to the same contract (or base contracts) are
+inlined when possible, that is, when their implementation is available.  Calls
+to functions in other contracts are not inlined even if their code is
+available, since we cannot guarantee that the actual deployed code is the same.</p>
+<p>The CHC engine creates nonlinear Horn clauses that use summaries of the called
+functions to support internal function calls. External function calls are treated
+as calls to unknown code, including potential reentrant calls.</p>
+<p>Complex pure functions are abstracted by an uninterpreted function (UF) over
+the arguments.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Functions</p></th>
+<th class="head"><p>BMC/CHC behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">assert</span></code></p></td>
+<td><p>Verification target.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">require</span></code></p></td>
+<td><p>Assumption.</p></td>
+</tr>
+<tr class="row-even"><td><p>internal call</p></td>
+<td><p>BMC: Inline function call.
+CHC: Function summaries.</p></td>
+</tr>
+<tr class="row-odd"><td><p>external call to known code</p></td>
+<td><p>BMC: Inline function call or
+erase knowledge about state variables
+and local storage references.
+CHC: Assume called code is unknown.
+Try to infer invariants that hold
+after the call returns.</p></td>
+</tr>
+<tr class="row-even"><td><p>Storage array push/pop</p></td>
+<td><p>Supported precisely.
+Checks whether it is popping an
+empty array.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ABI functions</p></td>
+<td><p>Abstracted with UF.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">addmod</span></code>, <code class="docutils literal notranslate"><span class="pre">mulmod</span></code></p></td>
+<td><p>Supported precisely.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gasleft</span></code>, <code class="docutils literal notranslate"><span class="pre">blockhash</span></code>,
+<code class="docutils literal notranslate"><span class="pre">keccak256</span></code>, <code class="docutils literal notranslate"><span class="pre">ecrecover</span></code>
+<code class="docutils literal notranslate"><span class="pre">ripemd160</span></code></p></td>
+<td><p>Abstracted with UF.</p></td>
+</tr>
+<tr class="row-even"><td><p>pure functions without
+implementation (external or
+complex)</p></td>
+<td><p>Abstracted with UF</p></td>
+</tr>
+<tr class="row-odd"><td><p>external functions without
+implementation</p></td>
+<td><p>BMC: Erase state knowledge and assume
+result is nondeterminisc.
+CHC: Nondeterministic summary.
+Try to infer invariants that hold
+after the call returns.</p></td>
+</tr>
+<tr class="row-even"><td><p>transfer</p></td>
+<td><p>BMC: Checks whether the contract’s
+balance is sufficient.
+CHC: does not yet perform the check.</p></td>
+</tr>
+<tr class="row-odd"><td><p>others</p></td>
+<td><p>Currently unsupported</p></td>
+</tr>
+</tbody>
+</table>
+<p>Using abstraction means loss of precise knowledge, but in many cases it does
+not mean loss of proving power.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBSZWNvdmVyCnsKICAgIGZ1bmN0aW9uIGYoCiAgICAgICAgYnl0ZXMzMiBoYXNoLAogICAgICAgIHVpbnQ4IHYxLCB1aW50OCB2MiwKICAgICAgICBieXRlczMyIHIxLCBieXRlczMyIHIyLAogICAgICAgIGJ5dGVzMzIgczEsIGJ5dGVzMzIgczIKICAgICkgcHVibGljIHB1cmUgcmV0dXJucyAoYWRkcmVzcykgewogICAgICAgIGFkZHJlc3MgYTEgPSBlY3JlY292ZXIoaGFzaCwgdjEsIHIxLCBzMSk7CiAgICAgICAgcmVxdWlyZSh2MSA9PSB2Mik7CiAgICAgICAgcmVxdWlyZShyMSA9PSByMik7CiAgICAgICAgcmVxdWlyZShzMSA9PSBzMik7CiAgICAgICAgYWRkcmVzcyBhMiA9IGVjcmVjb3ZlcihoYXNoLCB2MiwgcjIsIHMyKTsKICAgICAgICBhc3NlcnQoYTEgPT0gYTIpOwogICAgICAgIHJldHVybiBhMTsKICAgIH0KfQ==" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Recover</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">f</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">hash</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">uint8</span><span class="w"> </span><span class="nv">v1</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8</span><span class="w"> </span><span class="nv">v2</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">r1</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">r2</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">s1</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">s2</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">address</span><span class="w"> </span><span class="nv">a1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ecrecover<span class="p">(</span><span class="kt">hash</span><span class="p">,</span><span class="w"> </span>v1<span class="p">,</span><span class="w"> </span>r1<span class="p">,</span><span class="w"> </span>s1<span class="p">);</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>v1<span class="w"> </span><span class="o">==</span><span class="w"> </span>v2<span class="p">);</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>r1<span class="w"> </span><span class="o">==</span><span class="w"> </span>r2<span class="p">);</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>s1<span class="w"> </span><span class="o">==</span><span class="w"> </span>s2<span class="p">);</span>
+<span class="w">        </span><span class="kt">address</span><span class="w"> </span><span class="nv">a2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ecrecover<span class="p">(</span><span class="kt">hash</span><span class="p">,</span><span class="w"> </span>v2<span class="p">,</span><span class="w"> </span>r2<span class="p">,</span><span class="w"> </span>s2<span class="p">);</span>
+<span class="w">        </span>assert<span class="p">(</span>a1<span class="w"> </span><span class="o">==</span><span class="w"> </span>a2<span class="p">);</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span>a1<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the example above, the SMTChecker is not expressive enough to actually
+compute <code class="docutils literal notranslate"><span class="pre">ecrecover</span></code>, but by modelling the function calls as uninterpreted
+functions we know that the return value is the same when called on equivalent
+parameters. This is enough to prove that the assertion above is always true.</p>
+<p>Abstracting a function call with an UF can be done for functions known to be
+deterministic, and can be easily done for pure functions.  It is however
+difficult to do this with general external functions, since they might depend
+on state variables.</p>
+</section>
+<section id="reference-types-and-aliasing">
+<h3>Reference Types and Aliasing<a class="headerlink" href="#reference-types-and-aliasing" title="Permalink to this heading"></a></h3>
+<p>Solidity implements aliasing for reference types with the same <a class="reference internal" href="types.html#data-location"><span class="std std-ref">data
+location</span></a>.
+That means one variable may be modified through a reference to the same data
+area.
+The SMTChecker does not keep track of which references refer to the same data.
+This implies that whenever a local reference or state variable of reference
+type is assigned, all knowledge regarding variables of the same type and data
+location is erased.
+If the type is nested, the knowledge removal also includes all the prefix base
+types.</p>
+<p class="remix-link-container"><a class="remix-link reference external" href="https://remix.ethereum.org/?#language=solidity&amp;version=0.8.23&amp;code=Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0zLjAKcHJhZ21hIHNvbGlkaXR5ID49MC44LjA7Cgpjb250cmFjdCBBbGlhc2luZwp7CiAgICB1aW50W10gYXJyYXkxOwogICAgdWludFtdW10gYXJyYXkyOwogICAgZnVuY3Rpb24gZigKICAgICAgICB1aW50W10gbWVtb3J5IGEsCiAgICAgICAgdWludFtdIG1lbW9yeSBiLAogICAgICAgIHVpbnRbXVtdIG1lbW9yeSBjLAogICAgICAgIHVpbnRbXSBzdG9yYWdlIGQKICAgICkgaW50ZXJuYWwgewogICAgICAgIGFycmF5MVswXSA9IDQyOwogICAgICAgIGFbMF0gPSAyOwogICAgICAgIGNbMF1bMF0gPSAyOwogICAgICAgIGJbMF0gPSAxOwogICAgICAgIC8vIEVyYXNpbmcga25vd2xlZGdlIGFib3V0IG1lbW9yeSByZWZlcmVuY2VzIHNob3VsZCBub3QKICAgICAgICAvLyBlcmFzZSBrbm93bGVkZ2UgYWJvdXQgc3RhdGUgdmFyaWFibGVzLgogICAgICAgIGFzc2VydChhcnJheTFbMF0gPT0gNDIpOwogICAgICAgIC8vIEhvd2V2ZXIsIGFuIGFzc2lnbm1lbnQgdG8gYSBzdG9yYWdlIHJlZmVyZW5jZSB3aWxsIGVyYXNlCiAgICAgICAgLy8gc3RvcmFnZSBrbm93bGVkZ2UgYWNjb3JkaW5nbHkuCiAgICAgICAgZFswXSA9IDI7CiAgICAgICAgLy8gRmFpbHMgYXMgZmFsc2UgcG9zaXRpdmUgYmVjYXVzZSBvZiB0aGUgYXNzaWdubWVudCBhYm92ZS4KICAgICAgICBhc3NlcnQoYXJyYXkxWzBdID09IDQyKTsKICAgICAgICAvLyBGYWlscyBiZWNhdXNlIGBhID09IGJgIGlzIHBvc3NpYmxlLgogICAgICAgIGFzc2VydChhWzBdID09IDIpOwogICAgICAgIC8vIEZhaWxzIGJlY2F1c2UgYGNbaV0gPT0gYmAgaXMgcG9zc2libGUuCiAgICAgICAgYXNzZXJ0KGNbMF1bMF0gPT0gMik7CiAgICAgICAgYXNzZXJ0KGRbMF0gPT0gMik7CiAgICAgICAgYXNzZXJ0KGJbMF0gPT0gMSk7CiAgICB9CiAgICBmdW5jdGlvbiBnKAogICAgICAgIHVpbnRbXSBtZW1vcnkgYSwKICAgICAgICB1aW50W10gbWVtb3J5IGIsCiAgICAgICAgdWludFtdW10gbWVtb3J5IGMsCiAgICAgICAgdWludCB4CiAgICApIHB1YmxpYyB7CiAgICAgICAgZihhLCBiLCBjLCBhcnJheTJbeF0pOwogICAgfQp9" target="_blank">open in Remix</a></p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// SPDX-License-Identifier: GPL-3.0</span>
+<span class="k">pragma solidity</span><span class="w"> </span><span class="o">&gt;=</span><span class="k">0.8.0</span><span class="p">;</span>
+
+<span class="k">contract</span><span class="w"> </span><span class="ni">Aliasing</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span>array1<span class="p">;</span>
+<span class="w">    </span><span class="kt">uint</span><span class="p">[][]</span><span class="w"> </span>array2<span class="p">;</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">f</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>a<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>b<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[][]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>c<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span>storage<span class="w"> </span>d
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>array1<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">;</span>
+<span class="w">        </span>a<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span>
+<span class="w">        </span>c<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">][</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span>
+<span class="w">        </span>b<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// Erasing knowledge about memory references should not</span>
+<span class="w">        </span><span class="c1">// erase knowledge about state variables.</span>
+<span class="w">        </span>assert<span class="p">(</span>array1<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// However, an assignment to a storage reference will erase</span>
+<span class="w">        </span><span class="c1">// storage knowledge accordingly.</span>
+<span class="w">        </span>d<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// Fails as false positive because of the assignment above.</span>
+<span class="w">        </span>assert<span class="p">(</span>array1<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">42</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// Fails because `a == b` is possible.</span>
+<span class="w">        </span>assert<span class="p">(</span>a<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// Fails because `c[i] == b` is possible.</span>
+<span class="w">        </span>assert<span class="p">(</span>c<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">][</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">);</span>
+<span class="w">        </span>assert<span class="p">(</span>d<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">2</span><span class="p">);</span>
+<span class="w">        </span>assert<span class="p">(</span>b<span class="p">[</span><span class="m m-Decimal">0</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">g</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>a<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>b<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint</span><span class="p">[][]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>c<span class="p">,</span>
+<span class="w">        </span><span class="kt">uint</span><span class="w"> </span><span class="nv">x</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>f<span class="p">(</span>a<span class="p">,</span><span class="w"> </span>b<span class="p">,</span><span class="w"> </span>c<span class="p">,</span><span class="w"> </span>array2<span class="p">[</span>x<span class="p">]);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>After the assignment to <code class="docutils literal notranslate"><span class="pre">b[0]</span></code>, we need to clear knowledge about <code class="docutils literal notranslate"><span class="pre">a</span></code> since
+it has the same type (<code class="docutils literal notranslate"><span class="pre">uint[]</span></code>) and data location (memory).  We also need to
+clear knowledge about <code class="docutils literal notranslate"><span class="pre">c</span></code>, since its base type is also a <code class="docutils literal notranslate"><span class="pre">uint[]</span></code> located
+in memory. This implies that some <code class="docutils literal notranslate"><span class="pre">c[i]</span></code> could refer to the same data as
+<code class="docutils literal notranslate"><span class="pre">b</span></code> or <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<p>Notice that we do not clear knowledge about <code class="docutils literal notranslate"><span class="pre">array</span></code> and <code class="docutils literal notranslate"><span class="pre">d</span></code> because they
+are located in storage, even though they also have type <code class="docutils literal notranslate"><span class="pre">uint[]</span></code>.  However,
+if <code class="docutils literal notranslate"><span class="pre">d</span></code> was assigned, we would need to clear knowledge about <code class="docutils literal notranslate"><span class="pre">array</span></code> and
+vice-versa.</p>
+</section>
+<section id="contract-balance">
+<h3>Contract Balance<a class="headerlink" href="#contract-balance" title="Permalink to this heading"></a></h3>
+<p>A contract may be deployed with funds sent to it, if <code class="docutils literal notranslate"><span class="pre">msg.value</span></code> &gt; 0 in the
+deployment transaction.
+However, the contract’s address may already have funds before deployment,
+which are kept by the contract.
+Therefore, the SMTChecker assumes that <code class="docutils literal notranslate"><span class="pre">address(this).balance</span> <span class="pre">&gt;=</span> <span class="pre">msg.value</span></code>
+in the constructor in order to be consistent with the EVM rules.
+The contract’s balance may also increase without triggering any calls to the
+contract, if</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">selfdestruct</span></code> is executed by another contract with the analyzed contract
+as the target of the remaining funds,</p></li>
+<li><p>the contract is the coinbase (i.e., <code class="docutils literal notranslate"><span class="pre">block.coinbase</span></code>) of some block.</p></li>
+</ul>
+<p>To model this properly, the SMTChecker assumes that at every new transaction
+the contract’s balance may grow by at least <code class="docutils literal notranslate"><span class="pre">msg.value</span></code>.</p>
+</section>
+</section>
+<section id="real-world-assumptions">
+<h2>Real World Assumptions<a class="headerlink" href="#real-world-assumptions" title="Permalink to this heading"></a></h2>
+<p>Some scenarios can be expressed in Solidity and the EVM, but are expected to
+never occur in practice.
+One of such cases is the length of a dynamic storage array overflowing during a
+push: If the <code class="docutils literal notranslate"><span class="pre">push</span></code> operation is applied to an array of length 2^256 - 1, its
+length silently overflows.
+However, this is unlikely to happen in practice, since the operations required
+to grow the array to that point would take billions of years to execute.
+Another similar assumption taken by the SMTChecker is that an address’ balance
+can never overflow.</p>
+<p>A similar idea was presented in <a class="reference external" href="https://eips.ethereum.org/EIPS/eip-1985">EIP-1985</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="natspec-format.html" class="btn btn-neutral float-left" title="NatSpec Format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="yul.html" class="btn btn-neutral float-right" title="Yul" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2023, The Solidity Authors.
+      <span class="commit">Revision <code>f704f362</code>.
+      </span></p>
+  </div>
+
+  
+    <p>
+        <a href="credits-and-attribution.html">Credits and attribution</a>.
+    </p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book fa-element"> RTD </span>
+
+    <span class="fa fa-element">
+    <input class="container_toggle" type="checkbox" id="switch" name="mode">
+    <label for="switch"></label>
+    </span>
+
+    <span class="fa fa-v fa-element"> v: v0.8.23 <span class="fa fa-caret-down"></span></span>
+
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Downloads</dt> 
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/pdf/">pdf</a></dd>
+            
+            <dd><a href="http://docs.soliditylang.org/_/downloads/en/v0.8.23/epub/">epub</a></dd>
+            
+        </dl>
+        <dl>
+            <dt>Versions</dt> 
+            <dd><a href="https://docs.soliditylang.org/en/latest/">latest</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/stable/">stable</a></dd>
+            
+            <dd><a href="index.html">v0.8.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.22/">v0.8.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.21/">v0.8.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.20/">v0.8.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.19/">v0.8.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.18/">v0.8.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.17/">v0.8.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.16/">v0.8.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.15/">v0.8.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.14/">v0.8.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.13/">v0.8.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.12/">v0.8.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.11/">v0.8.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.10/">v0.8.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.9/">v0.8.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.8/">v0.8.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.7/">v0.8.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.6/">v0.8.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.5/">v0.8.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.4/">v0.8.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.3/">v0.8.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.2/">v0.8.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.1/">v0.8.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.8.0/">v0.8.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.6/">v0.7.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.5/">v0.7.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.4/">v0.7.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.3/">v0.7.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.2/">v0.7.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.1/">v0.7.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.7.0/">v0.7.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.12/">v0.6.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.11/">v0.6.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.10/">v0.6.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.9/">v0.6.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.8/">v0.6.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.7/">v0.6.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.6/">v0.6.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.5/">v0.6.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.4/">v0.6.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.3/">v0.6.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.2/">v0.6.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.1/">v0.6.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.6.0/">v0.6.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.17/">v0.5.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.16/">v0.5.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.15/">v0.5.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.14/">v0.5.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.13/">v0.5.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.12/">v0.5.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.11/">v0.5.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.10/">v0.5.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.9/">v0.5.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.8/">v0.5.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.7/">v0.5.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.6/">v0.5.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.5/">v0.5.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.4/">v0.5.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.3/">v0.5.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.2/">v0.5.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.1/">v0.5.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.5.0/">v0.5.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.26/">v0.4.26</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.25/">v0.4.25</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.24/">v0.4.24</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.23/">v0.4.23</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.22/">v0.4.22</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.21/">v0.4.21</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.20/">v0.4.20</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.19/">v0.4.19</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.18/">v0.4.18</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.17/">v0.4.17</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.16/">v0.4.16</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.15/">v0.4.15</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.14/">v0.4.14</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.13/">v0.4.13</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.12/">v0.4.12</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.11/">v0.4.11</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.10/">v0.4.10</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.9/">v0.4.9</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.8/">v0.4.8</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.7/">v0.4.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.6/">v0.4.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.5/">v0.4.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.4/">v0.4.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.3/">v0.4.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.2/">v0.4.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.1/">v0.4.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.4.0/">v0.4.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.6/">v0.3.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.5/">v0.3.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.4/">v0.3.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.3/">v0.3.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.2/">v0.3.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.1/">v0.3.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.3.0/">v0.3.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.2/">v0.2.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.1/">v0.2.1</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.2.0/">v0.2.0</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.7/">v0.1.7</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.6/">v0.1.6</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.5/">v0.1.5</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.4/">v0.1.4</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.3/">v0.1.3</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/v0.1.2/">v0.1.2</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/develop/">develop</a></dd>
+            
+            <dd><a href="https://docs.soliditylang.org/en/breaking/">breaking</a></dd>
+            
+        </dl>
+        <dl>
+            
+            <dt>On Read the Docs</dt>
+            <dd>
+                <a href="http://readthedocs.org/projects/solidity/?fromdocs=solidity">Project Home</a>
+            </dd>
+            <dd>
+                <a href="http://readthedocs.org/builds/solidity/?fromdocs=solidity">Builds</a>
+            </dd>
+        </dl>
+    </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+
+<!-- Mirrored from docs.soliditylang.org/en/v0.8.23/smtchecker.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 Jan 2024 20:36:17 GMT -->
+</html>
