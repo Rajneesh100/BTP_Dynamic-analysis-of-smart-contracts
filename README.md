@@ -21,7 +21,6 @@
   - [Project Setup and Installation](#project-setup-and-installation)
     - [Prerequisites](#prerequisites)
     - [Step-by-Step Guide](#step-by-step-guide)
-  - [Contributions](#contributions)
   - [Future Enhancements](#future-enhancements)
     - [Enhanced Contextual Learning](#enhanced-contextual-learning)
     - [Advanced GUI Features](#advanced-gui-features)
@@ -29,8 +28,7 @@
     - [AI and ML Advancements](#ai-and-ml-advancements)
     - [Community and Ecosystem Integration](#community-and-ecosystem-integration)
     - [Integration with YUL and Opcode Optimization](#integration-with-yul-and-opcode-optimization)
-  - [License](#license)
-  - [Contact](#contact)
+
 
 ## Introduction
 The Solidity Smart-Contract Advisor is a cutting-edge tool designed to extend the capabilities of traditional language models in understanding and advising on Solidity smart contracts. At its core, the project integrates OpenAI's language models with a vast repository of verified smart contracts and comprehensive Solidity documentation, creating a specialized, context-aware system capable of delivering expert insights in the realm of smart contract development.
